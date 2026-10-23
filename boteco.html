@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description" content="Boteco da Vila em Carapicuíba - Comida boa, cerveja gelada e aquele clima que faz você querer ficar. R. Dalva de Oliveira, 90 - Parque Santa Teresa.">
+    <meta name="keywords" content="boteco da vila, restaurante, bar, petiscos, porções, cerveja, drinks, comemorações, aniversário, eventos, Carapicuíba, São Paulo">
+    <meta name="author" content="Boteco da Vila">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <meta property="og:title" content="Boteco da Vila - Comida Boa, Mesa Cheia, Momento Bom">
+    <meta property="og:description" content="R. Dalva de Oliveira, 90 - Parque Santa Teresa, Carapicuíba - SP. Terça a sábado das 12h às 23h.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200">
+    <meta property="og:locale" content="pt_BR">
+    
+    <title>Boteco da Vila</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Boteco da Vila",
+        "description": "Comida boa, cerveja gelada e aquele clima que faz você querer ficar.",
+        "image": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1200",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "R. Dalva de Oliveira, 90",
+            "addressLocality": "Carapicuíba",
+            "addressRegion": "SP"
+        },
+        "telephone": "+5511940068689",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "bestRating": "5"
+        },
+        "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "12:00",
+            "closes": "23:00"
+        },
+        "servesCuisine": "Brazilian",
+        "priceRange": "$$"
+    }
+    </script>
+
+    <link rel="stylesheet" href="boteco.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="logo">
+                <div class="logo-icon" aria-label="Boteco da Vila">
+                    <img src="imagens/logo-boteco.png" alt="Logo Boteco da Vila" loading="eager" class="logo-image">
+                </div>
+                <div class="logo-text">BOTECO DA VILA</div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="active">Início</a></li>
+                <li><a href="#menu">Cardápio</a></li>
+                <li><a href="#about">O Boteco</a></li>
+                <li><a href="#gallery">Galeria</a></li>
+                <li><a href="#events">Eventos</a></li>
+                <li><a href="#location">Localização</a></li>
+                <li>                <a href="https://wa.me/5511940068689?text=Olá! Gostaria de agendar uma comemoração." class="nav-cta" target="_blank" rel="noopener">Fale Conosco</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger" type="button" aria-label="Abrir menu" aria-controls="navMenu" aria-expanded="false">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-background hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-fire"></i> O melhor boteco da cidade
+                </div>
+                <h1 class="hero-title">COMIDA BOA.<span>MESA CHEIA.</span>MOMENTO BOM.</h1>
+                <p class="hero-desc">Sabores de verdade, cerveja gelada e aquele clima que faz você querer ficar.</p>
+                <div class="hero-btns">
+                    <a href="#menu" class="btn btn-primary">Ver Cardápio <i class="fas fa-arrow-right"></i></a>
+                    <a href="https://maps.app.goo.gl/RAim4gPCCR5Sewxu9" target="_blank" rel="noopener" class="btn btn-outline"><i class="fas fa-map-marker-alt"></i> Como Chegar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feat-card fade-in">
+                    <div class="feat-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Comida de Verdade</h3>
+                    <p>Ingredientes selecionados e pratos preparados com cuidado.</p>
+                </div>
+                <div class="feat-card fade-in">
+                    <div class="feat-icon"><i class="fas fa-chair"></i></div>
+                    <h3>Ambiente</h3>
+                    <p>Um espaço confortável para reunir a galera.</p>
+                </div>
+                <div class="feat-card fade-in">
+                    <div class="feat-icon"><i class="fas fa-headset"></i></div>
+                    <h3>Atendimento</h3>
+                    <p>Atendimento próximo, rápido e simpático.</p>
+                </div>
+                <div class="feat-card fade-in">
+                    <div class="feat-icon"><i class="fas fa-beer-mug-empty"></i></div>
+                    <h3>Clima de Boteco</h3>
+                    <p>Boa comida, bebida gelada e conversa garantida.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPECIALS -->
+    <section class="specials" id="specials">
+        <div class="container">
+            <div class="sec-header fade-in">
+                <p class="sec-sub">Os Queridinhos da Casa</p>
+                <h2 class="sec-title">Mais Pedido</h2>
+                <p class="sec-desc">Os pratos que todo mundo pede e sempre pede de novo.</p>
+            </div>
+            <div class="specials-grid">
+                <div class="special-card fade-in">
+                    <div class="special-img">
+                        <img src="imagens/foto-8.jpeg" alt="Arroz Carreteiro com Costelinha" loading="eager">
+                        <div class="special-badge"><i class="fas fa-crown"></i> Mais Pedido</div>
+                    </div>
+                    <div class="special-body">
+                        <h3>Arroz Carreteiro com Costelinha</h3>
+                        <p>Arroz temperado com feijão e pedaços de carne/costelinha suína.</p>
+                        <div class="special-footer">
+                            <span class="special-price">R$ 89,90</span>
+                            <div class="special-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="special-card fade-in">
+                    <div class="special-img">
+                        <img src="imagens/foto2.jpeg" alt="Batata Frita com Bacon e Cheddar" loading="eager">
+                        <div class="special-badge"><i class="fas fa-fire"></i> Especial</div>
+                    </div>
+                    <div class="special-body">
+                        <h3>Batata Frita com Bacon e Cheddar</h3>
+                        <p>Acompanha também pedaços de mandioca frita.</p>
+                        <div class="special-footer">
+                            <span class="special-price">R$ 45,90</span>
+                            <div class="special-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="special-card fade-in">
+                    <div class="special-img">
+                        <img src="imagens/foto-7-2.jpeg" alt="Porção de Torresmo" loading="eager">
+                        <div class="special-badge"><i class="fas fa-heart"></i> Favorito</div>
+                    </div>
+                    <div class="special-body">
+                        <h3>Porção de Torresmo</h3>
+                        <p>Torresmo crocante, servido com limão e pimenta.</p>
+                        <div class="special-footer">
+                            <span class="special-price">R$ 62,90</span>
+                            <div class="special-stars">
+                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="menu" id="menu">
+        <div class="container">
+            <div class="sec-header fade-in">
+                <p class="sec-sub">Nosso Cardápio</p>
+                <h2 class="sec-title">Do Clássico de Boteco aos Pratos que Chegam para Impressionar</h2>
+                <p class="sec-desc">Confira nossas opções. Valorize o sabor de verdade.</p>
+            </div>
+            <div class="menu-filters fade-in">
+                <button class="filter-btn active" data-filter="all">Todos</button>
+                <button class="filter-btn" data-filter="petiscos">Petiscos</button>
+                <button class="filter-btn" data-filter="porcoes">Porções</button>
+                <button class="filter-btn" data-filter="pratos">Pratos</button>
+                <button class="filter-btn" data-filter="burgers">Hambúrgueres</button>
+                <button class="filter-btn" data-filter="carnes">Carnes</button>
+                <button class="filter-btn" data-filter="bebidas">Bebidas</button>
+                <button class="filter-btn" data-filter="doces">Sobremesas</button>
+            </div>
+            <div class="menu-grid" id="menuGrid">
+
+                <div class="menu-card fade-in" data-cat="pratos">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=400&q=80" alt="Sopa Cremosa" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Pratos</p>
+                        <h3>Sopa Cremosa</h3>
+                        <p>Sopa cremosa servida com crocante.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 38,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="petiscos">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400&q=80" alt="Batata Frita" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Petiscos</p>
+                        <h3>Batata Frita</h3>
+                        <p>Batatas fritas crocantes.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 32,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="petiscos">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Espetinhos Grelhados" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Petiscos</p>
+                        <h3>Espetinhos Grelhados</h3>
+                        <p>Espetinhos grelhados servidos na brasa.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 35,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="carnes">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&q=80" alt="Carne Grelhada" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Carnes</p>
+                        <h3>Carne Grelhada</h3>
+                        <p>Carne grelhada fatiada.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 29,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="porcoes">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80" alt="Salada com Frango" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Porções</p>
+                        <h3>Salada com Frango</h3>
+                        <p>Salada fresca com frango grelhado.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 28,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="pratos">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=80" alt="Filé com Fritas" loading="lazy">
+                        <div class="menu-badge">Especial</div>
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Pratos</p>
+                        <h3>Filé com Fritas</h3>
+                        <p>Filé grelhado com batatas fritas crocantes.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 68,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="pratos">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=80" alt="Macarrão" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Pratos</p>
+                        <h3>Macarrão</h3>
+                        <p>Macarrão servido com molho e temperos.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 52,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="burgers">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" alt="X-Boteco" loading="lazy">
+                        <div class="menu-badge">Mais Pedido</div>
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Hambúrgueres</p>
+                        <h3>X-Boteco</h3>
+                        <p>Blend artesanal, queijo, bacon e molho especial.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 45,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="carnes">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&q=80" alt="Carne Grelhada" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Carnes</p>
+                        <h3>Carne Grelhada</h3>
+                        <p>Carne grelhada servida com folhas.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 89,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="bebidas">
+                    <div class="menu-img">
+                        <img src="https://images.pexels.com/photos/15235096/pexels-photo-15235096.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cervejas Geladas" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Bebidas</p>
+                        <h3>Cervejas Geladas</h3>
+                        <p>Cervejas servidas bem geladas.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 12,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="doces">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" alt="Donuts" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Sobremesas</p>
+                        <h3>Donuts</h3>
+                        <p>Doce macio com cobertura.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 18,90</span></div>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in" data-cat="doces">
+                    <div class="menu-img">
+                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80" alt="Brownie com Sorvete" loading="lazy">
+                    </div>
+                    <div class="menu-body">
+                        <p class="menu-cat">Sobremesas</p>
+                        <h3>Brownie com Sorvete</h3>
+                        <p>Brownie quente com sorvete de creme.</p>
+                        <div class="menu-foot"><span class="menu-price">R$ 28,90</span></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-img fade-in">
+                    <img src="imagens/ambiente-4.jpeg" alt="Interior do Boteco da Vila" loading="eager">
+                </div>
+                <div class="about-text fade-in">
+                    <p class="sec-sub">O Boteco</p>
+                    <h2>Mais que um Boteco, <span>um Ponto de Encontro</span></h2>
+                    <p>Um lugar para comer bem, reunir os amigos, comemorar e aproveitar sem pressa. Aqui cada momento é especial, cada prato tem história e cada cliente é tratado como em casa.</p>
+                    <ul class="about-list">
+                        <li><i class="fas fa-check-circle"></i> Ambiente Acolhedor</li>
+                        <li><i class="fas fa-check-circle"></i> Música Boa</li>
+                        <li><i class="fas fa-check-circle"></i> Atendimento Próximo</li>
+                        <li><i class="fas fa-check-circle"></i> Gastronomia de Verdade</li>
+                        <li><i class="fas fa-check-circle"></i> Cerveja Sempre Gelada</li>
+                        <li><i class="fas fa-check-circle"></i> Espaço para Comemorações</li>
+                    </ul>
+                    <p class="about-sign">Boteco & Restaurante</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery">
+        <div class="container">
+            <div class="sec-header fade-in">
+                <p class="sec-sub">Vem Conhecer</p>
+                <h2 class="sec-title">Nosso Espaço</h2>
+                <p class="sec-desc">Um olhar sobre onde tudo acontece.</p>
+            </div>
+            <div class="gallery-grid fade-in">
+                <div class="gallery-item" tabindex="0" role="button" aria-label="Ampliar imagem do ambiente">
+                    <img src="imagens/ambiente1.jpeg" alt="Ambiente principal do Boteco da Vila" loading="eager">
+                    <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item" tabindex="0" role="button" aria-label="Ampliar imagem do ambiente">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWn-6QgJcHh4_FW2BG9tgAvQo45puYTcQaVcH6D7d6A-5nqYMB8u-hVVHIq2qADZVM4UNp_DcZBp56MzXV_HaYRCFJQSxJxKmkAaj4FmoIdtoI8vOmGxM1jOBKcB3zAML5mGLBPb=s270-k-no" alt="Ambiente do Boteco da Vila" loading="lazy">
+                    <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item" tabindex="0" role="button" aria-label="Ampliar imagem do ambiente">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlYdMWIlMCssb-N5PUU3pAaJD3QWtnJoNbZRBtuxFtJdHVkpDKcsanoEv65vjidSdHbZ_hKeBueIuoCO07JW-Uz5zcMvJ5pjv3RcPs-GuZz0NM2YN2IdDMiMxdJ6-0fe-LDuTs=s541-k-no" alt="Ambiente do Boteco da Vila" loading="lazy">
+                    <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item" tabindex="0" role="button" aria-label="Ampliar imagem do ambiente">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWlVpKICjTmfmFHan5JCGpxP-AV1YrO-7DeEHQk2c4UgL4b6tkBKcSR33hEgA2ibGnYMHkTbWJTPUMQXWY2T8TVBI5nDKwd4mxfjmb9ckbMrGCPWsNUAA1WQTxJR-Rc7oPDY0bE=w203-h271-k-no" alt="Ambiente do Boteco da Vila" loading="lazy">
+                    <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                </div>
+                <div class="gallery-item" tabindex="0" role="button" aria-label="Ampliar imagem do ambiente">
+                    <img src="https://lh3.googleusercontent.com/gps-cs-s/AHRPTWk24L0q0OYv4wy-5nZHt5Vdhs5vYUdWesmRWPHzpgbMFiRKx0aAgH9tkrgoKF6K4upAdV68rqk5Y-Uf7GLKVowxVccJAohM51Q2WY6EDMRew_23OH-_Inyzrqn8t-aGD8JziQLA=w203-h247-k-no" alt="Ambiente do Boteco da Vila" loading="lazy">
+                    <div class="gallery-overlay"><i class="fas fa-expand"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="events" id="events">
+        <div class="container">
+            <div class="events-grid">
+                <div class="events-img fade-in">
+                    <img src="imagens/eventos%202.jfif" alt="Pessoas comemorando juntas em um evento" loading="lazy">
+                </div>
+                <div class="events-text fade-in">
+                    <p class="sec-sub">Comemorações e Eventos</p>
+                    <h2>Quer comemorar <span>com a gente?</span></h2>
+                    <p>Se você está planejando um aniversário, confraternização ou qualquer comemoração especial, a gente separa um cantinho perfeito para você e seus convidados.</p>
+                    <div class="events-types">
+                        <div class="event-type"><i class="fas fa-birthday-cake"></i> <span>Aniversários</span></div>
+                        <div class="event-type"><i class="fas fa-users"></i> <span>Confraternizações</span></div>
+                        <div class="event-type"><i class="fas fa-glass-cheers"></i> <span>Comemorações</span></div>
+                        <div class="event-type"><i class="fas fa-calendar-star"></i> <span>Pequenos Eventos</span></div>
+                    </div>
+                    <a href="https://wa.me/5511940068689?text=Olá! Gostaria de agendar uma comemoração/evento. Podem me ajudar?" class="btn btn-whatsapp" target="_blank" rel="noopener">
+                        <i class="fab fa-whatsapp"></i> Falar Sobre uma Reserva
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DRINKS -->
+    <section class="drinks" id="drinks">
+        <div class="container">
+            <div class="sec-header fade-in">
+                <p class="sec-sub">Bebidas</p>
+                <h2 class="sec-title">Sempre Gelado, Sempre Bom</h2>
+                <p class="sec-desc">Da cerveja artesanal ao drink mais criativo.</p>
+            </div>
+            <div class="drinks-grid">
+                <div class="drink-card fade-in">
+                    <div class="drink-icon"><i class="fas fa-beer-mug-empty"></i></div>
+                    <h3>Chopp</h3>
+                    <p>500ml gelado, espuma cremosa.</p>
+                    <p class="drink-price">A partir de R$ 12,90</p>
+                </div>
+                <div class="drink-card fade-in">
+                    <div class="drink-icon"><i class="fas fa-wine-bottle"></i></div>
+                    <h3>Cervejas</h3>
+                    <p>Lata, long neck e garrafa.</p>
+                    <p class="drink-price">A partir de R$ 8,90</p>
+                </div>
+                <div class="drink-card fade-in">
+                    <div class="drink-icon"><i class="fas fa-cocktail"></i></div>
+                    <h3>Drinks</h3>
+                    <p>Clássicos e autorais.</p>
+                    <p class="drink-price">A partir de R$ 18,90</p>
+                </div>
+                <div class="drink-card fade-in">
+                    <div class="drink-icon"><i class="fas fa-lemon"></i></div>
+                    <h3>Caipirinhas</h3>
+                    <p>Limão, morango, maracujá e mais.</p>
+                    <p class="drink-price">A partir de R$ 16,90</p>
+                </div>
+                <div class="drink-card fade-in">
+                    <div class="drink-icon"><i class="fas fa-glass-water"></i></div>
+                    <h3>Refrigerantes</h3>
+                    <p>Lata e garrafa 600ml.</p>
+                    <p class="drink-price">A partir de R$ 6,90</p>
+                </div>
+                <div class="drink-card fade-in">
+                    <div class="drink-icon"><i class="fas fa-apple-whole"></i></div>
+                    <h3>Sucos</h3>
+                    <p>Naturais e artificiais.</p>
+                    <p class="drink-price">A partir de R$ 9,90</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="reviews-box fade-in">
+                <p class="sec-sub">Sua opinião importa</p>
+                <h2 class="sec-title">Como foi sua experiência?</h2>
+                <div class="review-carousel" aria-live="polite">
+                    <div class="review-track" id="reviewTrack">
+                        <div class="review-empty">As avaliações reais dos clientes aparecerão aqui.</div>
+                    </div>
+                </div>
+                <div class="reviews-stars" aria-label="Avalie sua experiência de uma a cinco estrelas">
+                    <button class="review-star" type="button" data-rating="1" aria-label="Avaliar com 1 estrela"><i class="far fa-star"></i></button>
+                    <button class="review-star" type="button" data-rating="2" aria-label="Avaliar com 2 estrelas"><i class="far fa-star"></i></button>
+                    <button class="review-star" type="button" data-rating="3" aria-label="Avaliar com 3 estrelas"><i class="far fa-star"></i></button>
+                    <button class="review-star" type="button" data-rating="4" aria-label="Avaliar com 4 estrelas"><i class="far fa-star"></i></button>
+                    <button class="review-star" type="button" data-rating="5" aria-label="Avaliar com 5 estrelas"><i class="far fa-star"></i></button>
+                </div>
+                <p>Conte para a gente como foi sua visita, sua comida e o atendimento. Sua avaliação ajuda o Boteco da Vila a melhorar cada vez mais.</p>
+                <form class="review-form" id="reviewForm">
+                    <input id="reviewName" type="text" placeholder="Seu nome" autocomplete="name" required>
+                    <textarea id="reviewComment" placeholder="Conte como foi sua experiência" required></textarea>
+                    <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Publicar avaliação</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM -->
+    <section class="instagram" id="instagram">
+        <div class="container">
+            <div class="sec-header fade-in">
+                <p class="sec-sub">Instagram</p>
+                <h2 class="sec-title">Siga @botecodavilabar</h2>
+                <p class="sec-desc">Acompanhe nosso dia a dia, pratos novos e promoções.</p>
+            </div>
+            <div class="insta-grid fade-in">
+                <div class="insta-item">
+                    <img src="https://instagram.fcgh39-1.fna.fbcdn.net/v/t51.82787-15/656427122_18077747621386270_20697028806833591_n.jpg?stp=dst-jpegr_e35_tt6&_nc_cat=108&ig_cache_key=Mzg2MTQ5NDc1NTc3NTg5MjUwOQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTQ0MC5oZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=ZC-02tpnWIEQ7kNvwEXPKHC&_nc_oc=AdopgT3wVxhctvxIdXOmbLYBzdunLZCXaEMCzUMnZoFZC_EZ-w1YyeUMVqjNsfKYFIM&_nc_ad=z-m&_nc_cid=1138&_nc_zt=23&_nc_ht=instagram.fcgh39-1.fna&_nc_gid=rCHBpe63a6u3k53FvvA_qA&_nc_ss=796a8&oh=00_AQLFEJyCuqHU5FnCHlq4EebAhUicgGGqh2r6yDzuJ8gY-Q&oe=6AA9CEBA" alt="Instagram 1" loading="lazy">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i><span>@botecodavilabar</span></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://instagram.fcgh39-1.fna.fbcdn.net/v/t39.30808-6/630419741_122152167512956581_2774687443207462766_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=108&ig_cache_key=MzgyOTc0NjcwNjY0MDk1MDgxOA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTA4MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=6rdjykBfzZEQ7kNvwHxCAi5&_nc_oc=AdofOvVnXH04PLKccJ40pR2XX8X3f_dldKthNTmdmCPukelovJa7Fuk1oeUDFod4f8Q&_nc_ad=z-m&_nc_cid=1138&_nc_zt=23&_nc_ht=instagram.fcgh39-1.fna&_nc_gid=HYsKCehp8FAvcHIV8vU_OQ&_nc_ss=796a8&oh=00_AQLWUd4j7J_VMaCxaUFOrs4WIj1Y9gExrr0ixP9t0qSQvw&oe=6AA9E251" alt="Instagram 2" loading="lazy">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i><span>@botecodavilabar</span></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://instagram.fcgh15-1.fna.fbcdn.net/v/t51.82787-15/624693800_18071838536386270_762211893098764015_n.jpg?stp=dst-jpg_e35_p240x240_tt6&_nc_cat=109&ig_cache_key=MzgyMDcyNzk0MzY5ODUwNDQ4MA%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTE5OS5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=CPZ5-Q8HPnsQ7kNvwH0YIfB&_nc_oc=AdpUh4V3TNAwklxfFAP_iqv1xCSoiiYB6NMZoLoa8kHSrDdRFFYDM0Iur0qGPrtsfR8&_nc_ad=z-m&_nc_cid=1138&_nc_zt=23&_nc_ht=instagram.fcgh15-1.fna&_nc_gid=nUHALrvJSO2NW32dCQTOxA&_nc_ss=7a22e&oh=00_AQJnLFq6pvyFXwQWWVgWWQHG5OkaL3aO7_RiQyFnJXTd3A&oe=6AA9C334" alt="Instagram 3" loading="lazy">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i><span>@botecodavilabar</span></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://instagram.fcgh15-1.fna.fbcdn.net/v/t51.71878-15/590416643_1659886324827864_2831359163379030338_n.jpg?stp=dst-jpg_e15_p240x240_tt6&_nc_cat=110&ig_cache_key=Mzc4NjcyMTAyMzMyOTQ0NTEzMw%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjY0MC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=hO-FcftTmVkQ7kNvwFLkpU7&_nc_oc=Adrp7i21svPDFXCgFqJw0x8fFFQIFNRBt0iHpgOG8-uPYxlgho_zYzI-naZe4rM1sWA&_nc_ad=z-m&_nc_cid=1138&_nc_zt=23&_nc_ht=instagram.fcgh15-1.fna&_nc_gid=nUHALrvJSO2NW32dCQTOxA&_nc_ss=7a22e&oh=00_AQLgrrSeo1V7BghgLrICx4q7Fipmp0dPLVCB5i8JzbCFuA&oe=6AA9E917" alt="Instagram 4" loading="lazy">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i><span>@botecodavilabar</span></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://instagram.fcgh15-1.fna.fbcdn.net/v/t51.82787-15/589586080_18066833687386270_3757834936132590430_n.jpg?stp=dst-jpg_e15_p240x240_tt6&_nc_cat=110&ig_cache_key=Mzc4MTc0MzY2MTM5NTM1MzE0MzE4MDY2ODMzNjg0Mzg2Mjcw.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkNMSVBTLnhwaWRzLjcyMC5zZHIudmlkZW9fZGVmYXVsdF9jb3Zlcl9mcmFtZS5DMyJ9&_nc_ohc=VG971_p0zaUQ7kNvwE3e_uF&_nc_oc=AdrqEhPYLGi2t552QcTO5LQUmqU-MmuXBEFU4HN7MZ54BF4a6BLERoiVgENhzHmgPZo&_nc_ad=z-m&_nc_cid=1138&_nc_zt=23&_nc_ht=instagram.fcgh15-1.fna&_nc_gid=nUHALrvJSO2NW32dCQTOxA&_nc_ss=7a22e&oh=00_AQK33XOpRiZzDT0SdEZkGJkyj1GyMK6GGT34VpDblpYeSw&oe=6AA9D410" alt="Instagram 5" loading="lazy">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i><span>@botecodavilabar</span></div>
+                </div>
+                <div class="insta-item">
+                    <img src="https://instagram.fcgh15-1.fna.fbcdn.net/v/t51.82787-15/559239165_18060186755386270_6410948272291774205_n.jpg?stp=dst-jpg_e35_p240x240_tt6&_nc_cat=109&ig_cache_key=MzczNDg0NDk1ODgzNTQ4ODY0Ng%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6IkZFRUQueHBpZHMuMTQ0MC5zZHIucmVndWxhcl9waG90by5DMyJ9&_nc_ohc=psMt5zZ3MUAQ7kNvwEa7oSg&_nc_oc=AdoXYrsyCvaDVDylSzwBFQTKx72smyWOcviJbatk9DqhtG7Xp4JEwpDLRhaq2TYUPg&_nc_ad=z-m&_nc_cid=1138&_nc_zt=23&_nc_ht=instagram.fcgh15-1.fna&_nc_gid=nUHALrvJSO2NW32dCQTOxA&_nc_ss=7a22e&oh=00_AQJId7lnjJKzItBqdNf0O6revauzEaCjJgAZtCsJ2bdlag&oe=6AA9B952" alt="Instagram 6" loading="lazy">
+                    <div class="insta-overlay"><i class="fab fa-instagram"></i><span>@botecodavilabar</span></div>
+                </div>
+            </div>
+            <div class="insta-cta fade-in">
+                <a href="https://www.instagram.com/botecodavilabar/" target="_blank" rel="noopener" class="btn btn-outline">
+                    <i class="fab fa-instagram"></i> Seguir no Instagram
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- LOCATION -->
+    <section class="location" id="location">
+        <div class="container">
+            <div class="sec-header fade-in">
+                <p class="sec-sub">Onde Estamos</p>
+                <h2 class="sec-title">Venha nos Visitar</h2>
+            </div>
+            <div class="loc-grid">
+                <div class="loc-items fade-in">
+                    <div class="loc-item">
+                        <div class="loc-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="loc-detail">
+                            <h4>Endereço</h4>
+                            <p>R. Dalva de Oliveira, 90<br>Parque Santa Teresa<br>Carapicuíba - SP</p>
+                        </div>
+                    </div>
+                    <div class="loc-item">
+                        <div class="loc-icon"><i class="fas fa-phone"></i></div>
+                        <div class="loc-detail">
+                            <h4>Telefone / WhatsApp</h4>
+                            <p>(11) 94006-8689</p>
+                        </div>
+                    </div>
+                    <div class="loc-item">
+                        <div class="loc-icon"><i class="fas fa-clock"></i></div>
+                        <div class="loc-detail">
+                            <h4>Horário</h4>
+                            <p>Terça a Sábado: 12h às 23h<br>Domingo e Segunda: Fechado</p>
+                        </div>
+                    </div>
+                    <div class="loc-item">
+                        <div class="loc-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="loc-detail">
+                            <h4>Avaliação</h4>
+                            <p><i class="rating-icon fas fa-star"></i> <strong>4.8</strong> de 5 estrelas</p>
+                        </div>
+                    </div>
+                    <a href="https://maps.app.goo.gl/RAim4gPCCR5Sewxu9" target="_blank" rel="noopener" class="directions-link btn btn-primary"><i class="fas fa-directions"></i> Como Chegar</a>
+                </div>
+                <div class="loc-map fade-in">
+                    <iframe src="https://www.google.com/maps?q=Boteco+da+Vila,+R.+Dalva+de+Oliveira,+90,+Parque+Santa+Teresa,+Carapicu%C3%ADba,+SP&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOURS -->
+    <section class="hours" id="hours">
+        <div class="container">
+            <div class="sec-header fade-in">
+                <p class="sec-sub">Horários</p>
+                <h2 class="sec-title">Quando Estamos Aqui</h2>
+            </div>
+            <div class="hours-grid">
+                <div class="hour-card fade-in">
+                    <div class="hour-icon"><i class="fas fa-briefcase"></i></div>
+                    <p class="hour-day">Terça a Sexta</p>
+                    <p class="hour-time">12:00 - 23:00</p>
+                </div>
+                <div class="hour-card fade-in">
+                    <div class="hour-icon"><i class="fas fa-moon"></i></div>
+                    <p class="hour-day">Sábado</p>
+                    <p class="hour-time">12:00 - 23:00</p>
+                </div>
+                <div class="hour-card fade-in">
+                    <div class="hour-icon"><i class="fas fa-lock"></i></div>
+                    <p class="hour-day">Domingo e Segunda</p>
+                    <p class="hour-time">Fechado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="logo">
+                        <div class="logo-icon" aria-label="Boteco da Vila">
+                            <img src="imagens/logo-boteco.png" alt="Logo Boteco da Vila" class="logo-image">
+                        </div>
+                        <div class="logo-text">BOTECO DA VILA</div>
+                    </a>
+                    <p>O melhor lugar para comer bem, beber gelado e reunir a galera. Venha nos conhecer!</p>
+                    <div class="footer-social">
+                        <a href="https://www.instagram.com/botecodavilabar/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/5511940068689" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#menu">Cardápio</a></li>
+                        <li><a href="#about">O Boteco</a></li>
+                        <li><a href="#gallery">Galeria</a></li>
+                        <li><a href="#events">Eventos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Cardápio</h4>
+                    <ul>
+                        <li><a href="#menu">Petiscos</a></li>
+                        <li><a href="#menu">Porções</a></li>
+                        <li><a href="#menu">Pratos</a></li>
+                        <li><a href="#menu">Bebidas</a></li>
+                        <li><a href="#menu">Sobremesas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li><a href="tel:+5511940068689"><i class="fas fa-phone"></i> (11) 94006-8689</a></li>
+                        <li><a href="https://wa.me/5511940068689" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> (11) 94006-8689</a></li>
+                        <li><a href="#location"><i class="fas fa-map-marker-alt"></i> R. Dalva de Oliveira, 90</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Boteco da Vila. Todos os direitos reservados.</p>
+                <p>Feito com <i class="fas fa-heart heart"></i> para quem ama um bom boteco</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WHATSAPP FLOAT -->
+    <a href="https://wa.me/5511940068689?text=Olá! Gostaria de informações sobre o boteco." class="whatsapp-float" target="_blank" rel="noopener" aria-label="Fale conosco pelo WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagem ampliada" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Fechar imagem ampliada"><i class="fas fa-times"></i></button>
+        <img id="lightboxImage" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="">
+    </div>
+
+    <script src="boteco.js" defer></script>
+</body>
+</html>
