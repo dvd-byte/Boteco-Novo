@@ -148,7 +148,8 @@ window.addEventListener('scroll', () => {
     sections.forEach(section => {
         const top = section.offsetTop;
         const height = section.offsetHeight;
-        const id = section.getAttribute('id');
+        // About and gallery share the same navigation item.
+        const id = section.id === 'gallery' ? 'about' : section.id;
         const link = document.querySelector('.nav-menu a[href="#' + id + '"]');
         if (link) {
             if (scrollY >= top && scrollY < top + height) {
@@ -171,18 +172,11 @@ filterBtns.forEach(btn => {
 
         menuCards.forEach(card => {
             const match = filter === 'all' || card.dataset.cat === filter;
+            observer.unobserve(card);
+            card.classList.remove('visible');
             card.style.display = match ? '' : 'none';
-            if (match) {
-                card.classList.remove('visible');
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(15px)';
-                requestAnimationFrame(() => {
-                    card.style.transition = 'opacity 0.4s, transform 0.4s';
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                    card.classList.add('visible');
-                });
-            }
+            // Reobserve cards even when the filter leaves them in the same position.
+            if (match) observer.observe(card);
         });
     });
 });
@@ -228,7 +222,11 @@ lightbox.addEventListener('click', (event) => {
 const fadeEls = document.querySelectorAll('.fade-in');
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
+        // Reverse the reveal at the lower boundary when scrolling back up.
+        // Content already passed above the viewport stays revealed.
+        const aboveViewport = entry.boundingClientRect.top < 0;
+        const revealed = aboveViewport || (entry.isIntersecting && entry.intersectionRatio >= 0.1);
+        entry.target.classList.toggle('visible', revealed);
     });
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 

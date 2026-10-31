@@ -63,7 +63,7 @@ button, input, select, textarea { font-family: inherit; outline: none; border: n
 .hero .container { position: relative; z-index: 2; padding-top: 100px; padding-bottom: 60px; }
 .hero-content { max-width: 650px; }
 .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; background: rgba(245, 124, 0, 0.15); border: 1px solid rgba(245, 124, 0, 0.5); border-radius: 50px; font-family: var(--ui); font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 25px; }
-.hero-title { font-family: var(--heading); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.05; margin-bottom: 20px; }
+.hero-title { font-family: var(--heading); font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 700; line-height: 1.05; margin-bottom: 20px; letter-spacing: -2px;}
 .hero-title span { color: var(--primary); display: block; }
 .hero-desc { font-size: 1.1rem; color: var(--gray); margin-bottom: 35px; max-width: 480px; line-height: 1.7; }
 .hero-btns { display: flex; gap: 15px; flex-wrap: wrap; }
@@ -78,7 +78,7 @@ button, input, select, textarea { font-family: inherit; outline: none; border: n
 .features { background: var(--surface); padding: 60px 0; margin-top: -50px; position: relative; z-index: 3; border-radius: 20px; }
 .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
 .feat-card { text-align: center; padding: 30px 15px; border-radius: 12px; background: var(--surface2); transition: transform 0.3s, box-shadow 0.3s; }
-.feat-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+.feat-card.fade-in.visible:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
 .feat-icon { width: 65px; height: 65px; background: rgba(245, 124, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; font-size: 1.4rem; color: var(--primary); transition: all 0.3s; }
 .feat-card:hover .feat-icon { background: var(--primary); color: var(--bg); }
 .feat-card h3 { font-family: var(--ui); font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
@@ -88,7 +88,7 @@ button, input, select, textarea { font-family: inherit; outline: none; border: n
 .specials { padding: 80px 0; background: var(--bg); }
 .specials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
 .special-card { background: var(--surface); border-radius: 12px; overflow: hidden; border: 1px solid var(--surface2); transition: transform 0.3s, box-shadow 0.3s; }
-.special-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
+.special-card.fade-in.visible:hover { transform: translateY(-5px); box-shadow: 0 25px 50px rgba(0,0,0,0.4); }
 .special-img { position: relative; height: 260px; overflow: hidden; }
 .special-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .special-card:hover .special-img img { transform: scale(1.08); }
@@ -107,7 +107,7 @@ button, input, select, textarea { font-family: inherit; outline: none; border: n
 .filter-btn:hover, .filter-btn.active { background: var(--primary); border-color: var(--primary); color: var(--bg); }
 .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
 .menu-card { background: var(--bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--surface2); transition: transform 0.3s, border-color 0.3s; }
-.menu-card:hover { transform: translateY(-5px); border-color: var(--primary); }
+.menu-card.fade-in.visible:hover { transform: translateY(-5px); border-color: var(--primary); }
 .menu-img { position: relative; height: 180px; overflow: hidden; }
 .menu-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
 .menu-card:hover .menu-img img { transform: scale(1.08); }
@@ -163,16 +163,6 @@ button, input, select, textarea { font-family: inherit; outline: none; border: n
 .event-type { display: flex; align-items: center; gap: 12px; padding: 14px; background: var(--surface); border-radius: 10px; }
 .event-type i { color: var(--primary); font-size: 1.2rem; width: 24px; text-align: center; }
 .event-type span { font-family: var(--ui); font-size: 0.9rem; font-weight: 500; }
-
-/* DRINKS */
-.drinks { padding: 80px 0; background: var(--surface); }
-.drinks-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
-.drink-card { background: var(--bg); border-radius: 12px; padding: 25px 20px; text-align: center; border: 1px solid var(--surface2); transition: transform 0.3s, border-color 0.3s; }
-.drink-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-.drink-icon { width: 70px; height: 70px; background: rgba(245, 124, 0, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-size: 1.8rem; color: var(--primary); }
-.drink-card h3 { font-family: var(--heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
-.drink-card p { color: var(--gray); font-size: 0.85rem; margin-bottom: 12px; }
-.drink-price { font-family: var(--ui); font-size: 1rem; font-weight: 700; color: var(--primary); }
 
 /* INSTAGRAM */
 .instagram { padding: 80px 0; background: var(--bg); }
@@ -303,7 +293,6 @@ body.lightbox-open, body.menu-open { overflow: hidden; }
     .hero-desc { font-size: 0.98rem; margin-bottom: 28px; }
     .hero-btns { flex-direction: column; }
     .hero-btns .btn { width: 100%; }
-    .drinks-grid { grid-template-columns: 1fr; }
     .insta-grid { grid-template-columns: repeat(2, 1fr); }
     .menu-filters { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
     .filter-btn { flex-shrink: 0; }
