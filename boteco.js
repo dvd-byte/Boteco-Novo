@@ -254,3 +254,27 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
         }
     });
 });
+// Keep a lone final card centered only when the actual grid has two columns.
+const centerLoneGridCard = grid => {
+    const layout = getComputedStyle(grid);
+    const columns = layout.gridTemplateColumns.trim().split(/\s+/);
+    const cards = Array.from(grid.children);
+    const visibleCards = cards.filter(card => !card.hidden);
+    const loneCard = columns.length === 2 && visibleCards.length % 2 === 1
+        ? visibleCards[visibleCards.length - 1] : null;
+    grid.style.setProperty('--lone-card-gap', layout.columnGap);
+    cards.forEach(card => card.classList.toggle('grid-card-centered', card === loneCard));
+};
+const balancedCardGrids = document.querySelectorAll('.specials-grid, .menu-grid');
+balancedCardGrids.forEach(grid => {
+    centerLoneGridCard(grid);
+    // Includes API replacements and cards hidden by search or category filters.
+    new MutationObserver(() => centerLoneGridCard(grid)).observe(grid, {
+        childList: true, subtree: true, attributes: true, attributeFilter: ['hidden']
+    });
+    if ('ResizeObserver' in window) {
+        new ResizeObserver(() => centerLoneGridCard(grid)).observe(grid);
+    } else {
+        window.addEventListener('resize', () => centerLoneGridCard(grid));
+    }
+});

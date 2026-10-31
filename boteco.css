@@ -102,8 +102,8 @@ button, input, select, textarea { font-family: inherit; outline: none; border: n
 
 /* MENU */
 .menu { padding: 80px 0; background: var(--surface); }
-.menu-filters { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; scrollbar-width: thin; }
-.filter-btn { padding: 8px 20px; background: var(--bg); border: 1px solid var(--surface2); border-radius: 50px; font-family: var(--ui); font-size: 0.8rem; font-weight: 600; color: var(--gray); cursor: pointer; transition: all 0.3s; }
+.menu-filters { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; max-width: 880px; margin: 0 auto 40px; }
+.filter-btn { min-width: 0; min-height: 44px; white-space: normal; overflow-wrap: anywhere; padding: 8px 12px; background: var(--bg); border: 1px solid var(--surface2); border-radius: 50px; font-family: var(--ui); font-size: 0.8rem; font-weight: 600; color: var(--gray); cursor: pointer; transition: all 0.3s; }
 .filter-btn:hover, .filter-btn.active { background: var(--primary); border-color: var(--primary); color: var(--bg); }
 .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 20px; }
 .menu-card { background: var(--bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--surface2); transition: transform 0.3s, border-color 0.3s; }
@@ -295,8 +295,8 @@ body.lightbox-open, body.menu-open { overflow: hidden; }
     .hero-btns { flex-direction: column; }
     .hero-btns .btn { width: 100%; }
     .insta-grid { grid-template-columns: repeat(2, 1fr); }
-    .menu-filters { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 10px; -webkit-overflow-scrolling: touch; }
-    .filter-btn { flex-shrink: 0; }
+    .menu-filters { gap: 6px; }
+    .filter-btn { padding: 8px 5px; font-size: 0.65rem; line-height: 1.4; border-radius: 14px; }
     .special-footer { align-items: flex-start; flex-direction: column; gap: 8px; }
     .special-stars { justify-content: flex-start; }
     .about-list { grid-template-columns: 1fr; gap: 12px; }
@@ -362,3 +362,11 @@ body.product-dialog-open { overflow: hidden; }
 .menu-more { text-align: center; margin-top: 28px; }
 .menu-more:has(button[hidden]) { display: none; }
 #menuMore[hidden] { display: none; }
+
+.specials-grid > .grid-card-centered,
+.menu-grid > .grid-card-centered {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc((100% - var(--lone-card-gap)) / 2);
+    min-width: 0;
+}
