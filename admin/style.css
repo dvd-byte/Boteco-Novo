@@ -1,0 +1,95 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: #0b0b0b;
+  color: #fff;
+  font: 16px system-ui;
+}
+header {
+  padding: 20px;
+  background: #171717;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+h1 {
+  font-size: 22px;
+}
+main {
+  max-width: 1100px;
+  margin: auto;
+  padding: 24px;
+}
+button {
+  cursor: pointer;
+  background: #f57c00;
+  color: #111;
+  border: 0;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 4px;
+  font-weight: 600;
+}
+label {
+  display: block;
+  margin: 12px 0;
+}
+input,
+textarea,
+select {
+  display: block;
+  width: 100%;
+  background: #222;
+  color: white;
+  border: 1px solid #666;
+  border-radius: 5px;
+  padding: 12px;
+  margin: 6px 0;
+}
+input[type="checkbox"] {
+  width: auto;
+}
+textarea {
+  min-height: 100px;
+}
+#login {
+  max-width: 420px;
+  margin: 40px auto;
+}
+nav {
+  display: flex;
+  flex-wrap: wrap;
+}
+article {
+  padding: 16px;
+  margin: 12px 0;
+  border: 1px solid #444;
+  border-radius: 8px;
+}
+dialog {
+  background: #171717;
+  color: white;
+  width: min(700px, 95vw);
+  max-height: 90vh;
+  border: 1px solid #888;
+  border-radius: 12px;
+}
+dialog::backdrop {
+  background: #000b;
+}
+#message {
+  color: #ffc178;
+}
+output {
+  display: block;
+  overflow-wrap: anywhere;
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid white;
+}
+[hidden] {
+  display: none !important;
+}

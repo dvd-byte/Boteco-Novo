@@ -38,70 +38,6 @@ attachLocalFallbacks('.gallery-item img[src^="http"]', localImageFallbacks.galle
 attachLocalFallbacks('.events-img img[src^="http"]', localImageFallbacks.events);
 attachLocalFallbacks('.insta-item img[src^="http"]', localImageFallbacks.instagram);
 
-let selectedReviewRating = 0;
-let reviewIndex = 0;
-const demoReviews = [
-    { name: 'Exemplo demonstrativo', comment: 'Um ambiente agradável para reunir os amigos.', rating: 5 },
-    { name: 'Exemplo demonstrativo', comment: 'Uma experiência gostosa para comemorar juntos.', rating: 5 },
-    { name: 'Exemplo demonstrativo', comment: 'Um boteco acolhedor para aproveitar sem pressa.', rating: 4 }
-];
-const reviewTrack = document.getElementById('reviewTrack');
-const reviewForm = document.getElementById('reviewForm');
-const reviewName = document.getElementById('reviewName');
-const reviewComment = document.getElementById('reviewComment');
-
-const renderReviews = () => {
-    const reviews = JSON.parse(localStorage.getItem('botecoReviews') || '[]');
-    reviewIndex = 0;
-    const visibleReviews = reviews.length ? reviews : demoReviews;
-    reviewTrack.innerHTML = visibleReviews.length ? visibleReviews.map(review => `
-        <article class="review-card${reviews.length ? '' : ' demo-review'}">
-            ${reviews.length ? '' : '<span class="review-demo-label">Exemplo demonstrativo</span>'}
-            <div class="review-card-stars" aria-label="${review.rating} de 5 estrelas">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
-            <blockquote>"${review.comment.replace(/[<>]/g, '')}"</blockquote>
-            <cite>${review.name.replace(/[<>]/g, '')}</cite>
-        </article>
-    `).join('') : '<div class="review-empty">Ainda não há avaliações publicadas.</div>';
-};
-
-document.querySelectorAll('.review-star').forEach(star => {
-    star.addEventListener('click', () => {
-        const rating = Number(star.dataset.rating);
-        selectedReviewRating = rating;
-        document.querySelectorAll('.review-star').forEach((item, index) => {
-            item.classList.toggle('selected', index < rating);
-            item.querySelector('i').className = index < rating ? 'fas fa-star' : 'far fa-star';
-        });
-    });
-});
-
-reviewForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    if (!selectedReviewRating) {
-        alert('Escolha uma quantidade de estrelas antes de publicar.');
-        return;
-    }
-    const reviews = JSON.parse(localStorage.getItem('botecoReviews') || '[]');
-    reviews.push({ name: reviewName.value.trim(), comment: reviewComment.value.trim(), rating: selectedReviewRating });
-    localStorage.setItem('botecoReviews', JSON.stringify(reviews));
-    reviewForm.reset();
-    selectedReviewRating = 0;
-    document.querySelectorAll('.review-star').forEach(star => {
-        star.classList.remove('selected');
-        star.querySelector('i').className = 'far fa-star';
-    });
-    renderReviews();
-});
-
-renderReviews();
-setInterval(() => {
-    const reviewCards = reviewTrack.querySelectorAll('.review-card');
-    if (reviewCards.length > 1) {
-        reviewIndex = (reviewIndex + 1) % reviewCards.length;
-        reviewTrack.style.transform = `translateX(-${reviewIndex * 100}%)`;
-    }
-}, 5000);
-
 // Navbar scroll
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -165,8 +101,8 @@ window.addEventListener('scroll', () => {
 });
 
 // Category, search and expansion share a single visibility calculation.
-const filterBtns = document.querySelectorAll('.filter-btn');
-const menuCards = document.querySelectorAll('.menu-card');
+let filterBtns = document.querySelectorAll('.filter-btn');
+let menuCards = document.querySelectorAll('.menu-card');
 const menuSearch = document.getElementById('menuSearch');
 const menuMore = document.getElementById('menuMore');
 const menuGrid = document.getElementById('menuGrid');
@@ -221,7 +157,7 @@ if ('ResizeObserver' in window) {
     window.addEventListener('resize', updateMenuPreview);
 }
 
-filterBtns.forEach(btn => {
+const bindMenuFilters = () => filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         activeCategory = activeCategory === btn.dataset.filter ? null : btn.dataset.filter;
         menuExpanded = false;
@@ -233,6 +169,7 @@ filterBtns.forEach(btn => {
         filterMenu();
     });
 });
+bindMenuFilters();
 menuSearch.addEventListener('input', () => {
     menuExpanded = false;
     filterMenu();
@@ -293,13 +230,21 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 fadeEls.forEach(el => observer.observe(el));
+document.addEventListener('boteco:menu-will-update', () => {
+    document.querySelectorAll('#menuGrid .fade-in, #specialsGrid .fade-in').forEach(el=>observer.unobserve(el));
+});
+document.addEventListener('boteco:menu-updated', () => {
+    filterBtns=document.querySelectorAll('.filter-btn');menuCards=document.querySelectorAll('.menu-card');
+    activeCategory=null;menuExpanded=false;bindMenuFilters();filterMenu();
+    document.querySelectorAll('#specialsGrid .fade-in').forEach(el=>observer.observe(el));
+});
 filterMenu();
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
-        if (href === '#') return;
+        if (!href || !href.startsWith('#') || href === '#') return;
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
