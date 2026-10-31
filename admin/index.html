@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>Administração | Boteco da Vila</title
+  ><link rel="stylesheet" href="/admin/style.css" />
+  <body>
+    <header>
+      <h1>Boteco da Vila · Administração</h1>
+      <button id="logout" hidden>Sair</button>
+    </header>
+    <main>
+      <p id="message" role="status"></p>
+      <form id="login">
+        <h2>Acesso administrativo</h2>
+        <label
+          >E-mail<input
+            name="email"
+            type="email"
+            autocomplete="username"
+            required /></label
+        ><label
+          >Senha<input
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required /></label
+        ><button>Entrar</button>
+      </form>
+      <section id="dashboard" hidden>
+        <nav id="tabs"></nav>
+        <h2 id="title"></h2>
+        <p>
+          Para imagens, envie o arquivo e cole a URL retornada no campo
+          correspondente.
+        </p>
+        <form id="upload">
+          <input
+            type="file"
+            name="imagem"
+            accept="image/png,image/jpeg,image/webp"
+            required
+          /><button>Enviar imagem (até 5 MB)</button>
+        </form>
+        <output id="uploaded"></output
+        ><button id="create">Novo registro</button>
+        <div id="list"></div>
+        <dialog id="editor">
+          <form id="editForm">
+            <h2>Editar registro</h2>
+            <div id="fields"></div>
+            <button>Salvar</button
+            ><button type="button" id="cancel">Cancelar</button>
+          </form>
+        </dialog>
+      </section>
+    </main>
+    <script src="/admin/app.js"></script>
+  </body>
+</html>

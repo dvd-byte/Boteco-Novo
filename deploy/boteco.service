@@ -1,0 +1,21 @@
+[Unit]
+Description=Boteco da Vila Node API
+After=network.target mariadb.service
+
+[Service]
+Type=simple
+User=boteco
+Group=boteco
+WorkingDirectory=/var/www/boteco
+EnvironmentFile=/var/www/boteco/.env
+ExecStart=/usr/bin/node /var/www/boteco/server/app.js
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/boteco/uploads
+
+[Install]
+WantedBy=multi-user.target

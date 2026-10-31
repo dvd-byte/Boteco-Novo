@@ -1,0 +1,42 @@
+{
+  "name": "boteco-novo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "boteco.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "node --watch server/app.js",
+    "migrate": "node server/migrate.js",
+    "admin:create": "node server/migrate.js --admin",
+    "seed": "node server/seed.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dvd-byte/Boteco-Novo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dvd-byte/Boteco-Novo/issues"
+  },
+  "homepage": "https://github.com/dvd-byte/Boteco-Novo#readme",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.2",
+    "helmet": "^8.3.0",
+    "mariadb": "^3.5.4",
+    "multer": "^2.5.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.3",
+    "prettier": "^3.9.10"
+  }
+}
