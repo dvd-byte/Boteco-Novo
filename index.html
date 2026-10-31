@@ -131,60 +131,11 @@
     <section class="specials" id="specials">
         <div class="container">
             <div class="sec-header fade-in">
-                <p class="sec-sub">Os Queridinhos da Casa</p>
-                <h2 class="sec-title">Mais Pedido</h2>
-                <p class="sec-desc">Os pratos que todo mundo pede e sempre pede de novo.</p>
+                <p class="sec-sub">Sabores da casa</p>
+                <h2 class="sec-title">Para compartilhar bons momentos</h2>
+                <p class="sec-desc">Conheça algumas das opções do nosso cardápio.</p>
             </div>
-            <div class="specials-grid">
-                <div class="special-card fade-in">
-                    <div class="special-img">
-                        <img src="imagens/foto-8.jpeg" alt="Arroz Carreteiro com Costelinha" loading="eager">
-                        <div class="special-badge"><i class="fas fa-crown"></i> Mais Pedido</div>
-                    </div>
-                    <div class="special-body">
-                        <h3>Arroz Carreteiro com Costelinha</h3>
-                        <p>Arroz temperado com feijão e pedaços de carne/costelinha suína.</p>
-                        <div class="special-footer">
-                            <span class="special-price">R$ 89,90</span>
-                            <div class="special-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="special-card fade-in">
-                    <div class="special-img">
-                        <img src="imagens/foto2.jpeg" alt="Batata Frita com Bacon e Cheddar" loading="eager">
-                        <div class="special-badge"><i class="fas fa-fire"></i> Especial</div>
-                    </div>
-                    <div class="special-body">
-                        <h3>Batata Frita com Bacon e Cheddar</h3>
-                        <p>Acompanha também pedaços de mandioca frita.</p>
-                        <div class="special-footer">
-                            <span class="special-price">R$ 45,90</span>
-                            <div class="special-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="special-card fade-in">
-                    <div class="special-img">
-                        <img src="imagens/foto-7-2.jpeg" alt="Porção de Torresmo" loading="eager">
-                        <div class="special-badge"><i class="fas fa-heart"></i> Favorito</div>
-                    </div>
-                    <div class="special-body">
-                        <h3>Porção de Torresmo</h3>
-                        <p>Torresmo crocante, servido com limão e pimenta.</p>
-                        <div class="special-footer">
-                            <span class="special-price">R$ 62,90</span>
-                            <div class="special-stars">
-                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div class="specials-grid" id="specialsGrid"></div>
         </div>
     </section>
 
@@ -192,169 +143,16 @@
     <section class="menu" id="menu">
         <div class="container">
             <div class="sec-header fade-in">
-                <p class="sec-sub">Nosso Cardápio</p>
-                <h2 class="sec-title">Do Clássico de Boteco aos Pratos que Chegam para Impressionar</h2>
-                <p class="sec-desc">Confira nossas opções. Valorize o sabor de verdade.</p>
+                <p class="sec-sub">Nosso cardápio</p>
+                <h2 class="sec-title">Comida de boteco. Sabor de verdade.</h2>
             </div>
-            <div class="menu-filters fade-in">
-                <button class="filter-btn active" data-filter="all">Todos</button>
-                <button class="filter-btn" data-filter="petiscos">Petiscos</button>
-                <button class="filter-btn" data-filter="porcoes">Porções</button>
-                <button class="filter-btn" data-filter="pratos">Pratos</button>
-                <button class="filter-btn" data-filter="burgers">Hambúrgueres</button>
-                <button class="filter-btn" data-filter="carnes">Carnes</button>
-                <button class="filter-btn" data-filter="bebidas">Bebidas</button>
-                <button class="filter-btn" data-filter="doces">Sobremesas</button>
-            </div>
-            <div class="menu-grid" id="menuGrid">
-
-                <div class="menu-card fade-in" data-cat="pratos">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1626200419199-391ae4be7a41?w=400&q=80" alt="Sopa Cremosa" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Pratos</p>
-                        <h3>Sopa Cremosa</h3>
-                        <p>Sopa cremosa servida com crocante.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 38,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="petiscos">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?w=400&q=80" alt="Batata Frita" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Petiscos</p>
-                        <h3>Batata Frita</h3>
-                        <p>Batatas fritas crocantes.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 32,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="petiscos">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=400&q=80" alt="Espetinhos Grelhados" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Petiscos</p>
-                        <h3>Espetinhos Grelhados</h3>
-                        <p>Espetinhos grelhados servidos na brasa.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 35,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="carnes">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&q=80" alt="Carne Grelhada" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Carnes</p>
-                        <h3>Carne Grelhada</h3>
-                        <p>Carne grelhada fatiada.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 29,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="porcoes">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&q=80" alt="Salada com Frango" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Porções</p>
-                        <h3>Salada com Frango</h3>
-                        <p>Salada fresca com frango grelhado.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 28,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="pratos">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400&q=80" alt="Filé com Fritas" loading="lazy">
-                        <div class="menu-badge">Especial</div>
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Pratos</p>
-                        <h3>Filé com Fritas</h3>
-                        <p>Filé grelhado com batatas fritas crocantes.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 68,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="pratos">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=400&q=80" alt="Macarrão" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Pratos</p>
-                        <h3>Macarrão</h3>
-                        <p>Macarrão servido com molho e temperos.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 52,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="burgers">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=80" alt="X-Boteco" loading="lazy">
-                        <div class="menu-badge">Mais Pedido</div>
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Hambúrgueres</p>
-                        <h3>X-Boteco</h3>
-                        <p>Blend artesanal, queijo, bacon e molho especial.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 45,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="carnes">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&q=80" alt="Carne Grelhada" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Carnes</p>
-                        <h3>Carne Grelhada</h3>
-                        <p>Carne grelhada servida com folhas.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 89,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="bebidas">
-                    <div class="menu-img">
-                        <img src="https://images.pexels.com/photos/15235096/pexels-photo-15235096.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Cervejas Geladas" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Bebidas</p>
-                        <h3>Cervejas Geladas</h3>
-                        <p>Cervejas servidas bem geladas.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 12,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="doces">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&q=80" alt="Donuts" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Sobremesas</p>
-                        <h3>Donuts</h3>
-                        <p>Doce macio com cobertura.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 18,90</span></div>
-                    </div>
-                </div>
-
-                <div class="menu-card fade-in" data-cat="doces">
-                    <div class="menu-img">
-                        <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80" alt="Brownie com Sorvete" loading="lazy">
-                    </div>
-                    <div class="menu-body">
-                        <p class="menu-cat">Sobremesas</p>
-                        <h3>Brownie com Sorvete</h3>
-                        <p>Brownie quente com sorvete de creme.</p>
-                        <div class="menu-foot"><span class="menu-price">R$ 28,90</span></div>
-                    </div>
-                </div>
-
-            </div>
+            <div class="menu-search"><label for="menuSearch">O que você procura?</label><input id="menuSearch" type="search" placeholder="Busque um prato ou uma bebida…" autocomplete="off"></div>
+            <div class="menu-filters" id="menuFilters" aria-label="Categorias do cardápio"></div>
+            <p class="menu-count" id="menuCount" role="status" aria-live="polite"></p>
+            <div class="menu-grid" id="menuGrid"></div>
+            <div class="menu-more"><button id="menuMore" class="btn btn-outline" type="button" aria-controls="menuGrid" aria-expanded="false" hidden>Ver mais</button></div>
+            <p id="menuEmpty" class="menu-empty" hidden>Nenhum item encontrado. Tente outro nome ou categoria.</p>
+            <noscript><p>Ative o JavaScript para visualizar o cardápio ou <a href="https://wa.me/5511940068689">consulte nossa equipe pelo WhatsApp</a>.</p></noscript>
         </div>
     </section>
 
@@ -530,7 +328,7 @@
                         <div class="loc-icon"><i class="fas fa-phone"></i></div>
                         <div class="loc-detail">
                             <h4>Telefone / WhatsApp</h4>
-                            <p>(11) 94006-8689</p>
+                            <p><a href="https://wa.me/5511981904839" target="_blank" rel="noopener">(11) 98190-4839</a><br><a href="https://wa.me/5511940068689" target="_blank" rel="noopener">(11) 94006-8689</a></p>
                         </div>
                     </div>
                     <div class="loc-item">
@@ -561,7 +359,7 @@
         <div class="container">
             <div class="sec-header fade-in">
                 <p class="sec-sub">Horários</p>
-                <h2 class="sec-title">Quando Estamos Aqui</h2>
+                <h2 class="sec-title">Horário da Cozinha</h2>
             </div>
             <div class="hours-grid">
                 <div class="hour-card fade-in">
@@ -577,7 +375,7 @@
                 <div class="hour-card fade-in">
                     <div class="hour-icon"><i class="fas fa-lock"></i></div>
                     <p class="hour-day">Domingo e Segunda</p>
-                    <p class="hour-time">Fechado</p>
+                    <p class="hour-time">Sem atendimento da cozinha</p>
                 </div>
             </div>
         </div>
@@ -613,16 +411,17 @@
                 <div class="footer-col">
                     <h4>Cardápio</h4>
                     <ul>
-                        <li><a href="#menu">Petiscos</a></li>
+                        <li><a href="#menu">Comidas típicas</a></li>
                         <li><a href="#menu">Porções</a></li>
-                        <li><a href="#menu">Pratos</a></li>
+                        <li><a href="#menu">Caldos e frutos do mar</a></li>
                         <li><a href="#menu">Bebidas</a></li>
-                        <li><a href="#menu">Sobremesas</a></li>
+                        <li><a href="#menu">Vinhos</a></li>
                     </ul>
                 </div>
                 <div class="footer-col">
                     <h4>Contato</h4>
                     <ul>
+                        <li><a href="https://wa.me/5511981904839" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> (11) 98190-4839</a></li>
                         <li><a href="tel:+5511940068689"><i class="fas fa-phone"></i> (11) 94006-8689</a></li>
                         <li><a href="https://wa.me/5511940068689" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> (11) 94006-8689</a></li>
                         <li><a href="#location"><i class="fas fa-map-marker-alt"></i> R. Dalva de Oliveira, 90</a></li>
@@ -646,6 +445,13 @@
         <img id="lightboxImage" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="">
     </div>
 
+    <dialog class="product-dialog" id="productDialog" aria-labelledby="productTitle">
+        <button class="product-close" id="closeProduct" type="button" aria-label="Fechar detalhes">×</button>
+        <h2 id="productTitle"></h2>
+        <div id="productContent"></div>
+    </dialog>
+    <script src="cardapio-data.js" defer></script>
+    <script src="cardapio.js" defer></script>
     <script src="boteco.js" defer></script>
 </body>
 </html>

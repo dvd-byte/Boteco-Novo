@@ -111,6 +111,7 @@ window.addEventListener('scroll', () => {
 // Hamburger menu
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('navMenu');
+const compactNavigation = window.matchMedia('(max-width: 1024px)');
 
 const setMenuState = (isOpen) => {
     hamburger.classList.toggle('active', isOpen);
@@ -118,9 +119,12 @@ const setMenuState = (isOpen) => {
     hamburger.setAttribute('aria-expanded', String(isOpen));
     hamburger.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
     document.body.classList.toggle('menu-open', isOpen);
+    navMenu.inert = compactNavigation.matches && !isOpen;
 };
 
 hamburger.addEventListener('click', () => setMenuState(!navMenu.classList.contains('open')));
+compactNavigation.addEventListener('change', () => setMenuState(false));
+setMenuState(false);
 
 document.querySelectorAll('.nav-menu a').forEach(link => {
     link.addEventListener('click', () => {
@@ -160,25 +164,83 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Menu filter
+// Category, search and expansion share a single visibility calculation.
 const filterBtns = document.querySelectorAll('.filter-btn');
 const menuCards = document.querySelectorAll('.menu-card');
+const menuSearch = document.getElementById('menuSearch');
+const menuMore = document.getElementById('menuMore');
+const menuGrid = document.getElementById('menuGrid');
+const getMenuPreviewCount = () => {
+    // Computed CSS exposes the actual grid tracks, including auto-fill columns.
+    const tracks = getComputedStyle(menuGrid).gridTemplateColumns;
+    const columns = tracks && tracks !== 'none' ? tracks.trim().split(/\s+/).length : 1;
+    return Math.max(4, columns * 2);
+};
+let menuPreviewCount = getMenuPreviewCount();
+let activeCategory = null;
+let menuExpanded = false;
+const normalizeMenuText = text => text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+const filterMenu = () => {
+    const query = normalizeMenuText(menuSearch.value.trim());
+    let count = 0;
+    let shown = 0;
+    menuCards.forEach(card => {
+        const match = (!activeCategory || card.dataset.cat === activeCategory)
+            && normalizeMenuText(card.dataset.name).includes(query);
+        if (match) count++;
+        const show = match && (menuExpanded || count <= menuPreviewCount);
+        if (show) {
+            shown++;
+            card.hidden = false;
+            observer.observe(card);
+        } else {
+            observer.unobserve(card);
+            card.classList.remove('visible');
+            card.hidden = true;
+        }
+    });
+    document.getElementById('menuCount').textContent = count
+        ? `Mostrando ${shown} de ${count} ${count === 1 ? 'opção' : 'opções'}`
+        : 'Nenhuma opção encontrada';
+    document.getElementById('menuEmpty').hidden = count !== 0;
+    menuMore.hidden = count <= menuPreviewCount;
+    menuMore.textContent = menuExpanded ? 'Ver menos' : 'Ver mais';
+    menuMore.setAttribute('aria-expanded', String(menuExpanded));
+};
+// Recalculate only when the column count changes, avoiding resize feedback loops.
+const updateMenuPreview = () => {
+    const nextCount = getMenuPreviewCount();
+    if (nextCount === menuPreviewCount) return;
+    menuPreviewCount = nextCount;
+    filterMenu();
+};
+if ('ResizeObserver' in window) {
+    const menuResizeObserver = new ResizeObserver(updateMenuPreview);
+    menuResizeObserver.observe(menuGrid);
+} else {
+    window.addEventListener('resize', updateMenuPreview);
+}
 
 filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const filter = btn.dataset.filter;
-
-        menuCards.forEach(card => {
-            const match = filter === 'all' || card.dataset.cat === filter;
-            observer.unobserve(card);
-            card.classList.remove('visible');
-            card.style.display = match ? '' : 'none';
-            // Reobserve cards even when the filter leaves them in the same position.
-            if (match) observer.observe(card);
+        activeCategory = activeCategory === btn.dataset.filter ? null : btn.dataset.filter;
+        menuExpanded = false;
+        filterBtns.forEach(b => {
+            const active = b.dataset.filter === activeCategory;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-pressed', String(active));
         });
+        filterMenu();
     });
+});
+menuSearch.addEventListener('input', () => {
+    menuExpanded = false;
+    filterMenu();
+});
+menuMore.addEventListener('click', () => {
+    menuExpanded = !menuExpanded;
+    filterMenu();
+    if (!menuExpanded) document.getElementById('menuFilters').scrollIntoView({ block: 'center' });
 });
 
 // Gallery lightbox
@@ -231,6 +293,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
 fadeEls.forEach(el => observer.observe(el));
+filterMenu();
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {

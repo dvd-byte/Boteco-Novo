@@ -105,7 +105,7 @@ button, input, select, textarea { font-family: inherit; outline: none; border: n
 .menu-filters { display: flex; justify-content: center; gap: 8px; margin-bottom: 40px; flex-wrap: wrap; scrollbar-width: thin; }
 .filter-btn { padding: 8px 20px; background: var(--bg); border: 1px solid var(--surface2); border-radius: 50px; font-family: var(--ui); font-size: 0.8rem; font-weight: 600; color: var(--gray); cursor: pointer; transition: all 0.3s; }
 .filter-btn:hover, .filter-btn.active { background: var(--primary); border-color: var(--primary); color: var(--bg); }
-.menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 20px; }
+.menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 270px), 1fr)); gap: 20px; }
 .menu-card { background: var(--bg); border-radius: 12px; overflow: hidden; border: 1px solid var(--surface2); transition: transform 0.3s, border-color 0.3s; }
 .menu-card.fade-in.visible:hover { transform: translateY(-5px); border-color: var(--primary); }
 .menu-img { position: relative; height: 180px; overflow: hidden; }
@@ -250,6 +250,12 @@ body.lightbox-open, body.menu-open { overflow: hidden; }
 
 /* RESPONSIVE */
 @media (max-width: 1024px) {
+    .hamburger { display: flex; }
+    .nav-menu { position: fixed; top: 0; right: -100%; visibility: hidden; pointer-events: none; width: min(280px, 86vw); height: 100dvh; background: var(--surface); flex-direction: column; justify-content: center; gap: 25px; padding: 80px 24px 40px; transition: right 0.3s ease, visibility 0.3s; box-shadow: -5px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
+    .nav-menu.open { right: 0; visibility: visible; pointer-events: auto; }
+    .nav-menu a { font-size: 1rem; }
+    .nav-cta { width: 100%; text-align: center; padding: 14px 22px !important; }
+
     .features-grid { grid-template-columns: repeat(2, 1fr); }
     .specials-grid { grid-template-columns: repeat(2, 1fr); }
     .about-grid, .events-grid, .loc-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -260,14 +266,9 @@ body.lightbox-open, body.menu-open { overflow: hidden; }
 }
 
 @media (max-width: 768px) {
-    .hamburger { display: flex; }
-    .nav-menu { position: fixed; top: 0; right: -100%; width: min(280px, 86vw); height: 100dvh; background: var(--surface); flex-direction: column; justify-content: center; gap: 25px; padding: 80px 24px 40px; transition: right 0.3s ease; box-shadow: -5px 0 30px rgba(0,0,0,0.5); overflow-y: auto; }
-    .nav-menu.open { right: 0; }
-    .nav-menu a { font-size: 1rem; }
-    .nav-cta { width: 100%; text-align: center; padding: 14px 22px !important; }
     .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
     .features-grid { grid-template-columns: 1fr; }
-    .specials-grid, .menu-grid { grid-template-columns: 1fr; }
+    .specials-grid { grid-template-columns: 1fr; }
     .gallery-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
     .gallery-item:first-child { grid-column: span 1; grid-row: span 1; }
     .gallery-grid .gallery-item { height: 220px; }
@@ -322,3 +323,42 @@ body.lightbox-open, body.menu-open { overflow: hidden; }
 .rating-icon { color:#FFC107; }
 
 .directions-link { margin-top:15px; }
+
+/* Real menu: text cards, searchable categories and product details. */
+.menu-search { max-width: 560px; margin: 0 auto 24px; }
+.menu-search label { display: block; font-size: .8rem; color: var(--gray); margin-bottom: 8px; }
+.menu-search input { width: 100%; padding: 14px 18px; border: 1px solid #444; border-radius: 10px; color: var(--white); background: var(--bg); font: inherit; }
+.menu-search input:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.menu-count { color: var(--gray); font-size: .8rem; margin: -16px 0 20px; }
+.menu-card[hidden], .menu-empty[hidden] { display: none; }
+.menu-card-text .menu-body { display: flex; flex-direction: column; height: 100%; padding: 24px; }
+.menu-card-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 18px; }
+.menu-card-heading .menu-cat { margin: 0; }
+.menu-symbol { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; background: #302115; color: var(--primary); }
+.menu-card-text .menu-foot { margin-top: auto; padding-top: 24px; flex-wrap: wrap; gap: 12px; }
+.menu-card-text .menu-price { font-size: 1rem; }
+.menu-details-button { cursor: pointer; color: #ffb15d; font-size: .8rem; padding: 8px 0; background: none; }
+.menu-details-button:hover { color: #ffd29e; }
+.menu-details-button:focus-visible, .product-close:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+.menu-availability { display: inline-block; font-size: .75rem; color: #ffcb8c; margin: 10px 0; }
+.menu-empty { text-align: center; color: var(--gray); padding: 32px 0; }
+.product-dialog { color-scheme: dark; width: min(560px, calc(100% - 32px)); max-height: 85vh; margin: auto; padding: 32px; border: 1px solid #444; border-radius: 18px; color: var(--cream); background: var(--surface); box-shadow: 0 25px 100px #0008; }
+.product-dialog::backdrop { background: #000b; backdrop-filter: blur(4px); }
+.product-dialog h2 { font-family: var(--heading); font-size: 1.6rem; padding-right: 24px; margin: 0 0 12px; }
+.product-dialog h3 { font-size: .95rem; margin: 24px 0 10px; }
+.product-dialog p { color: #bbb; font-size: .9rem; line-height: 1.7; }
+.product-dialog .sec-sub { color: var(--primary); }
+.product-close { position: absolute; right: 15px; top: 10px; color: var(--white); font-size: 2rem; cursor: pointer; padding: 0 8px; }
+.product-prices > div { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; border-bottom: 1px solid #333; font-size: .9rem; }
+.product-prices dd { color: #ffb15d; font-weight: 600; margin: 0; text-align: right; }
+.product-dialog .product-note { font-size: .75rem; margin-top: 10px; }
+.product-dialog .btn { margin-top: 26px; width: 100%; }
+body.product-dialog-open { overflow: hidden; }
+.specials-grid .special-footer { gap: 16px; flex-wrap: wrap; }
+.specials-grid .special-price { font-size: 1.2rem; }
+@media (max-width: 480px) { .product-dialog { padding: 24px; } .product-dialog h2 { font-size: 1.3rem; } }
+@media (prefers-reduced-motion: reduce) { .fade-in { transition: none; } }
+
+.menu-more { text-align: center; margin-top: 28px; }
+.menu-more:has(button[hidden]) { display: none; }
+#menuMore[hidden] { display: none; }
