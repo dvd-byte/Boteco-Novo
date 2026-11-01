@@ -343,7 +343,6 @@ app.use(
   "/uploads",
   express.static(uploadDir, { maxAge: "7d", dotfiles: "deny" }),
 );
-app.get(['/adm panel/', '/adm panel/dashboard.html', '/dashboard.html'], (req,res)=>res.redirect('/admin/'));
 app.use("/admin", express.static(path.join(root, "admin")));
 app.use("/imagens", express.static(path.join(root, "imagens")));
 for (const file of ["index.html", "boteco.css", "boteco.js", "cardapio-data.js", "cardapio.js", "cms.js"])

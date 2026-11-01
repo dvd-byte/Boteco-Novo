@@ -1,12 +1,75 @@
 const fs = require("node:fs"),
   cheerio = require("cheerio"),
   db = require("./db");
-const legacy = cheerio.load(
-  fs.readFileSync(
-    require("node:path").join(__dirname, "seed-source.html"),
-    "utf8",
-  ),
-);
+// Initial photos retained from the original site; no duplicate HTML snapshot needed.
+const initialPhotos = [
+  {
+    grupo: "galeria",
+    imagem_url: "imagens/ambiente1.jpeg",
+    texto_alternativo: "Ambiente principal do Boteco da Vila",
+    ordem: 0,
+  },
+  {
+    grupo: "galeria",
+    imagem_url: "imagens/ambiente2.jpeg",
+    texto_alternativo: "Ambiente do Boteco da Vila",
+    ordem: 1,
+  },
+  {
+    grupo: "galeria",
+    imagem_url: "imagens/ambiente-3.jpeg",
+    texto_alternativo: "Ambiente do Boteco da Vila",
+    ordem: 2,
+  },
+  {
+    grupo: "galeria",
+    imagem_url: "imagens/ambiente-4.jpeg",
+    texto_alternativo: "Ambiente do Boteco da Vila",
+    ordem: 3,
+  },
+  {
+    grupo: "galeria",
+    imagem_url: "imagens/ambiente1.jpeg",
+    texto_alternativo: "Ambiente do Boteco da Vila",
+    ordem: 4,
+  },
+  {
+    grupo: "instagram",
+    imagem_url: "imagens/foto-1.jpeg",
+    texto_alternativo: "Instagram 1",
+    ordem: 0,
+  },
+  {
+    grupo: "instagram",
+    imagem_url: "imagens/foto-3.jpeg",
+    texto_alternativo: "Instagram 2",
+    ordem: 1,
+  },
+  {
+    grupo: "instagram",
+    imagem_url: "imagens/foto-4.jpeg",
+    texto_alternativo: "Instagram 3",
+    ordem: 2,
+  },
+  {
+    grupo: "instagram",
+    imagem_url: "imagens/foto-5.jpeg",
+    texto_alternativo: "Instagram 4",
+    ordem: 3,
+  },
+  {
+    grupo: "instagram",
+    imagem_url: "imagens/ambiente-3.jpeg",
+    texto_alternativo: "Instagram 5",
+    ordem: 4,
+  },
+  {
+    grupo: "instagram",
+    imagem_url: "imagens/ambiente2.jpeg",
+    texto_alternativo: "Instagram 6",
+    ordem: 5,
+  },
+];
 const $ = cheerio.load(
   fs.readFileSync(
     require("node:path").join(__dirname, "../index.html"),
@@ -51,37 +114,7 @@ const $ = cheerio.load(
         botao_url: btn.attr("href") || null,
       });
     }
-    for (const group of ["galeria", "instagram"]) {
-      const selector =
-        group === "galeria" ? ".gallery-item img" : ".insta-item img";
-      let i = 0;
-      for (const el of legacy(selector).toArray()) {
-        const index = i++;
-        await insert("fotos", {
-          grupo: group,
-          imagem_url:
-            group === "instagram"
-              ? [
-                  "imagens/foto-1.jpeg",
-                  "imagens/foto-3.jpeg",
-                  "imagens/foto-4.jpeg",
-                  "imagens/foto-5.jpeg",
-                  "imagens/ambiente-3.jpeg",
-                  "imagens/ambiente2.jpeg",
-                ][index]
-              : index === 0
-                ? legacy(el).attr("src")
-                : [
-                    "imagens/ambiente2.jpeg",
-                    "imagens/ambiente-3.jpeg",
-                    "imagens/ambiente-4.jpeg",
-                    "imagens/ambiente1.jpeg",
-                  ][(index - 1) % 4],
-          texto_alternativo: legacy(el).attr("alt") || "Boteco da Vila",
-          ordem: index,
-        });
-      }
-    }
+    for (const photo of initialPhotos) await insert("fotos", photo);
     await insert("estabelecimento", {
       id: 1,
       nome: "Boteco da Vila",

@@ -1,6 +1,6 @@
 # Boteco da Vila — site e painel unificado
 
-O painel oficial é `/admin/`: tema escuro, visão geral numérica, análises com gráficos e gerenciamento conectado à API. O antigo `adm panel/dashboard.html` redireciona para ele. Não há cadastros demonstrativos nem gravação administrativa em localStorage.
+O painel oficial é `/admin/`: tema escuro, visão geral numérica, análises com gráficos e gerenciamento conectado à API. Não há cadastros demonstrativos nem gravação administrativa em localStorage.
 
 ## Ativar em um banco existente
 
