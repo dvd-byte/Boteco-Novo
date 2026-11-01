@@ -1,3 +1,4 @@
+const { validateDetail } = require("./product-details");
 const fail = (message) => {
   const e = Error(message);
   e.status = 400;
@@ -9,9 +10,13 @@ const definitions = {
     categoria_id: "id",
     nome: "text",
     descricao: "long",
-    preco: "price",
-    imagem_url: "url",
-    imagem_alt: "text",
+    preco: "nullableprice",
+    variacoes: "details",
+    adicionais: "details",
+    opcoes: "details",
+    dias_disponiveis: "details",
+    imagem_url: "url?",
+    imagem_alt: "optional",
     destaque: "bool",
     selo: "optional",
     ordem: "int",
@@ -42,6 +47,7 @@ const definitions = {
     descricao: "long",
     telefone: "text",
     whatsapp: "text",
+    whatsapp_secundario: "optional",
     email: "optional",
     endereco: "text",
     numero: "text",
@@ -82,11 +88,23 @@ function validate(table, body, partial = false) {
     let v = body[key];
     if (v === undefined) {
       if (partial) continue;
+      if (type === "details") {
+        out[key] = "[]";
+        continue;
+      }
       if (["optional", "url?"].includes(type)) {
         out[key] = null;
         continue;
       }
       fail(`Campo obrigatório: ${key}`);
+    }
+    if (type === "details") {
+      out[key] = JSON.stringify(validateDetail(key, v));
+      continue;
+    }
+    if (type === "nullableprice" && v === null) {
+      out[key] = null;
+      continue;
     }
     if (type === "bool") {
       if (![true, false, 0, 1].includes(v)) fail(key + " inválido");
@@ -100,7 +118,7 @@ function validate(table, body, partial = false) {
         (type === "day" && v > 6)
       )
         fail(key + " inválido");
-    } else if (type === "price") {
+    } else if (["price", "nullableprice"].includes(type)) {
       v = String(v);
       if (!/^\d{1,8}(\.\d{1,2})?$/.test(v)) fail("Preço inválido");
     } else {
@@ -118,6 +136,7 @@ function validate(table, body, partial = false) {
           nome: 160,
           telefone: 30,
           whatsapp: 30,
+          whatsapp_secundario: 30,
           email: 190,
           numero: 20,
           complemento: 120,
@@ -157,6 +176,15 @@ function validate(table, body, partial = false) {
         fail("Horário inválido");
     }
     out[key] = v;
+  }
+  if (table === "produtos" && out.variacoes) {
+    const variants = JSON.parse(out.variacoes);
+    if (variants.length)
+      out.preco = variants.some((v) => v.preco === null)
+        ? null
+        : Math.min(...variants.map((v) => v.preco));
+    else if (body.variacoes !== undefined && body.preco === undefined)
+      fail("Informe um preço ou ao menos uma variação");
   }
   if (!Object.keys(out).length) fail("Nenhum campo informado");
   return out;

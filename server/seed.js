@@ -1,9 +1,15 @@
 const fs = require("node:fs"),
   cheerio = require("cheerio"),
   db = require("./db");
-const $ = cheerio.load(
+const legacy = cheerio.load(
   fs.readFileSync(
     require("node:path").join(__dirname, "seed-source.html"),
+    "utf8",
+  ),
+);
+const $ = cheerio.load(
+  fs.readFileSync(
+    require("node:path").join(__dirname, "../index.html"),
     "utf8",
   ),
 );
@@ -20,53 +26,7 @@ const $ = cheerio.load(
         Object.values(data),
       );
     };
-    const cats = {};
-    for (const el of $(".filter-btn").toArray()) {
-      const slug = $(el).attr("data-filter");
-      if (slug === "all") continue;
-      cats[slug] = (
-        await insert("categorias", {
-          nome: $(el).text(),
-          slug,
-          ordem: Object.keys(cats).length,
-        })
-      ).insertId;
-    }
-    let order = 0;
-    for (const el of [...$(".menu-card").toArray(), ...$(".special-card").toArray()]) {
-      const e = $(el),
-        special = e.hasClass("special-card"),
-        name = e.find("h3").text(),
-        price = e
-          .find(".menu-price,.special-price")
-          .text()
-          .replace("R$", "")
-          .trim()
-          .replace(",", ".");
-      const [existing] = await conn.query(
-        "SELECT id FROM produtos WHERE nome=?",
-        [name],
-      );
-      if (special && existing) {
-        await conn.query(
-          "UPDATE produtos SET destaque=1,ordem_destaque=? WHERE id=?",
-          [order++, existing.id],
-        );
-        continue;
-      }
-      await insert("produtos", {
-        categoria_id: cats[e.attr("data-cat")] || cats.porcoes,
-        nome: name,
-        descricao: e.find(".menu-body>p:not(.menu-cat),.special-body>p").text(),
-        preco: price,
-        imagem_url: e.find("img").attr("src"),
-        imagem_alt: e.find("img").attr("alt") || name,
-        destaque: special ? 1 : 0,
-        selo: e.find(".menu-badge,.special-badge").text().trim() || null,
-        ordem: order++,
-        ordem_destaque: order,
-      });
-    }
+    await require("./import-catalog").importCatalog(db, false, conn);
     for (const el of $("section[id]").toArray()) {
       const e = $(el),
         id = e.attr("id"),
@@ -95,7 +55,7 @@ const $ = cheerio.load(
       const selector =
         group === "galeria" ? ".gallery-item img" : ".insta-item img";
       let i = 0;
-      for (const el of $(selector).toArray()) {
+      for (const el of legacy(selector).toArray()) {
         const index = i++;
         await insert("fotos", {
           grupo: group,
@@ -110,14 +70,14 @@ const $ = cheerio.load(
                   "imagens/ambiente2.jpeg",
                 ][index]
               : index === 0
-                ? $(el).attr("src")
+                ? legacy(el).attr("src")
                 : [
                     "imagens/ambiente2.jpeg",
                     "imagens/ambiente-3.jpeg",
                     "imagens/ambiente-4.jpeg",
                     "imagens/ambiente1.jpeg",
                   ][(index - 1) % 4],
-          texto_alternativo: $(el).attr("alt") || "Boteco da Vila",
+          texto_alternativo: legacy(el).attr("alt") || "Boteco da Vila",
           ordem: index,
         });
       }
@@ -129,6 +89,7 @@ const $ = cheerio.load(
         "Comida boa, cerveja gelada e aquele clima que faz você querer ficar.",
       telefone: "11940068689",
       whatsapp: "5511940068689",
+      whatsapp_secundario: "5511981904839",
       endereco: "R. Dalva de Oliveira",
       numero: "90",
       bairro: "Parque Santa Teresa",

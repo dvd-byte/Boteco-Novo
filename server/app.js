@@ -1,3 +1,4 @@
+const { decodeProduct } = require('./product-details');
 require("dotenv").config();
 const express = require("express"),
   helmet = require("helmet"),
@@ -169,7 +170,7 @@ app.get(
     ]);
     res.json({
       categorias,
-      produtos,
+      produtos: produtos.map(decodeProduct),
       secoes,
       fotos,
       avaliacoes,
@@ -218,13 +219,18 @@ app.use("/api/admin", auth, (req, res, next) => {
   res.set("Cache-Control", "no-store");
   next();
 });
+app.post('/api/admin/importar-cardapio', wrap(async (req,res) => {
+  if (typeof req.body.replace !== 'boolean') fail('Confirme o modo de importação');
+  const { importCatalog } = require('./import-catalog');
+  res.json(await importCatalog(db,req.body.replace));
+}));
 app.get("/api/admin/modelos", (req, res) => res.json(definitions));
 app.get(
   "/api/admin/avaliacoes",
   wrap(async (req, res) =>
     res.json(
       await db.query(
-        "SELECT * FROM avaliacoes ORDER BY criado_em DESC LIMIT 500",
+        "SELECT * FROM avaliacoes ORDER BY criado_em DESC",
       ),
     ),
   ),
@@ -246,7 +252,8 @@ app.get(
   "/api/admin/:table",
   wrap(async (req, res) => {
     if (!definitions[req.params.table]) return res.sendStatus(404);
-    res.json(await db.query(`SELECT * FROM ${req.params.table} ORDER BY id`));
+    const rows = await db.query(`SELECT * FROM ${req.params.table} ORDER BY id`);
+    res.json(req.params.table === "produtos" ? rows.map(decodeProduct) : rows);
   }),
 );
 app.post(
@@ -336,6 +343,7 @@ app.use(
   "/uploads",
   express.static(uploadDir, { maxAge: "7d", dotfiles: "deny" }),
 );
+app.get(['/adm panel/', '/adm panel/dashboard.html', '/dashboard.html'], (req,res)=>res.redirect('/admin/'));
 app.use("/admin", express.static(path.join(root, "admin")));
 app.use("/imagens", express.static(path.join(root, "imagens")));
 for (const file of ["index.html", "boteco.css", "boteco.js", "cardapio-data.js", "cardapio.js", "cms.js"])

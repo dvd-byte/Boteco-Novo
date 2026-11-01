@@ -78,7 +78,7 @@
     window.updateBotecoMenu(data);
     for (const s of data.secoes) {
       const section = document.getElementById(
-        { inicio: "home", o_boteco: "about" }[s.chave] || s.chave,
+        { inicio: "home", o_boteco: "about", eventos: "events" }[s.chave] || s.chave,
       );
       if (!section) continue;
       for (const [selector, value] of [
@@ -175,7 +175,11 @@
       document
         .querySelectorAll('a[href*="wa.me"]')
         .forEach(
-          (a) => (a.href = "https://wa.me/" + info.whatsapp.replace(/\D/g, "")),
+          (a) => {
+            const number = a.hasAttribute('data-whatsapp-secondary') ? info.whatsapp_secundario : info.whatsapp;
+            a.hidden = !number;
+            if(number) a.href = 'https://wa.me/' + number.replace(/\D/g,'');
+          },
         );
       document
         .querySelectorAll('a[href*="instagram.com"]')
@@ -187,7 +191,7 @@
       const details = document.querySelectorAll(".loc-detail");
       const values = [
         `${info.endereco}, ${info.numero}${info.complemento ? " · " + info.complemento : ""} — ${info.bairro}, ${info.cidade} / ${info.estado} ${info.cep}`,
-        info.telefone,
+        [info.telefone, info.whatsapp_secundario].filter(Boolean).join(" · "),
       ];
       details.forEach((el, i) => {
         const p = el.querySelector("p");
@@ -205,7 +209,7 @@
       if (address) address.textContent = info.endereco + ", " + info.numero;
       document
         .querySelectorAll('.footer-col a[href*="wa.me"]')
-        .forEach((el) => (el.textContent = info.telefone));
+        .forEach((el) => (el.textContent = el.hasAttribute("data-whatsapp-secondary") ? info.whatsapp_secundario || "" : info.telefone));
       document.querySelector(".footer-bottom p").textContent =
         "© " +
         new Date().getFullYear() +

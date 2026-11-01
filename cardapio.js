@@ -16,8 +16,11 @@
         const nextCategories = data.categorias.map(c=>({id:String(c.id),name:c.nome,icon:'fa-utensils'}));
         const nextProducts = data.produtos.map(p=>({
             id:String(p.id),category:String(p.categoria_id),name:p.nome,description:p.descricao,
-            variants:[{name:'Único',price:p.preco == null ? null : Number(p.preco)}],
-            options:[],addons:[],days:[]
+            variants:p.variacoes?.length ? p.variacoes.map(v=>({name:v.nome,price:v.preco===null?null:Number(v.preco)})) : [{name:'Único',price:p.preco == null ? null : Number(p.preco)}],
+            options:(p.opcoes||[]).map(o=>({name:o.nome,values:o.valores})),
+            addons:(p.adicionais||[]).map(a=>({name:a.nome,price:Number(a.preco)})),
+            days:p.dias_disponiveis||[],
+            availability:p.dias_disponiveis?.length ? 'Disponível: '+p.dias_disponiveis.map(d=>['domingo','segunda','terça','quarta','quinta','sexta','sábado'][d]).join(' e ') : ''
         }));
         if(nextProducts.some(p=>!nextCategories.some(c=>c.id===p.category))) throw Error('Categoria inválida na API');
         categories=nextCategories;products=nextProducts;
