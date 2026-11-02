@@ -272,6 +272,7 @@ app.post(
   wrap(async (req, res) => {
     const table = req.params.table,
       data = validate(table, req.body);
+    await require("./media")(data);
     if (table === "estabelecimento") data.id = 1;
     const keys = Object.keys(data);
     const r = await db.query(
@@ -286,6 +287,7 @@ app.patch(
   wrap(async (req, res) => {
     const table = req.params.table,
       data = validate(table, req.body, true);
+    await require("./media")(data);
     if (table === "intervalos_funcionamento") {
       const [old] = await db.query(
         "SELECT * FROM intervalos_funcionamento WHERE id=?",

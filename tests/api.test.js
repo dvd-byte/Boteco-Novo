@@ -103,6 +103,44 @@ test("API integrada com MariaDB: autenticação, conteúdo, CRUD, vínculos e mo
     r = await call("/api/admin/produtos", "POST", data, true);
     assert.equal(r.status, 201);
     product = (await r.json()).id;
+    assert.equal(
+      (
+        await call(
+          "/api/admin/produtos/" + product,
+          "PATCH",
+          { imagem_url: "/uploads/missing.png" },
+          true,
+        )
+      ).status,
+      400,
+    );
+    assert.equal(
+      (
+        await call(
+          "/api/admin/produtos/" + product,
+          "PATCH",
+          { imagem_url: "/uploads/../.env" },
+          true,
+        )
+      ).status,
+      400,
+    );
+    assert.equal(
+      (
+        await call(
+          "/api/admin/produtos/" + product,
+          "PATCH",
+          { imagem_url: null, imagem_alt: null },
+          true,
+        )
+      ).status,
+      200,
+    );
+    const [withoutImage] = await db.query(
+      "SELECT imagem_url FROM produtos WHERE id=?",
+      [product],
+    );
+    assert.equal(withoutImage.imagem_url, null);
     content = await (await call("/api/public/conteudo")).json();
     assert.ok(!content.produtos.some((p) => p.id === product));
     assert.equal(
@@ -216,20 +254,50 @@ test("API integrada com MariaDB: autenticação, conteúdo, CRUD, vínculos e mo
       body: form,
     });
     assert.equal(r.status, 400);
-    const image = await require('sharp')({create:{width:2,height:2,channels:3,background:'#ffffff'}}).png().toBuffer();
+    const image = await require("sharp")({
+      create: { width: 2, height: 2, channels: 3, background: "#ffffff" },
+    })
+      .png()
+      .toBuffer();
     const imageForm = new FormData();
-    imageForm.append('imagem', new Blob([image],{type:'image/png'}),'valid.png');
-    const uploaded = await fetch(base+'/api/admin-upload',{method:'POST',headers:{Origin:origin,Cookie:cookie},body:imageForm});
-    assert.equal(uploaded.status,201);
-    const {url} = await uploaded.json();
+    imageForm.append(
+      "imagem",
+      new Blob([image], { type: "image/png" }),
+      "valid.png",
+    );
+    const uploaded = await fetch(base + "/api/admin-upload", {
+      method: "POST",
+      headers: { Origin: origin, Cookie: cookie },
+      body: imageForm,
+    });
+    assert.equal(uploaded.status, 201);
+    const { url } = await uploaded.json();
     try {
-      assert.equal((await call('/api/admin/produtos/'+product,'PATCH',{imagem_url:url},true)).status,200);
-      assert.equal((await call(url)).status,200);
+      assert.equal(
+        (
+          await call(
+            "/api/admin/produtos/" + product,
+            "PATCH",
+            { imagem_url: url },
+            true,
+          )
+        ).status,
+        200,
+      );
+      assert.equal((await call(url)).status, 200);
     } finally {
-      await require('node:fs/promises').unlink(require('node:path').resolve(process.env.UPLOAD_DIR||'uploads',url.split('/').pop()));
+      await require("node:fs/promises").unlink(
+        require("node:path").resolve(
+          process.env.UPLOAD_DIR || "uploads",
+          url.split("/").pop(),
+        ),
+      );
     }
-    assert.equal((await call('/api/auth/logout','POST',null,true)).status,204);
-    assert.equal((await call('/api/auth/me','GET',null,true)).status,401);
+    assert.equal(
+      (await call("/api/auth/logout", "POST", null, true)).status,
+      204,
+    );
+    assert.equal((await call("/api/auth/me", "GET", null, true)).status, 401);
   } finally {
     if (review) await db.query("DELETE FROM avaliacoes WHERE id=?", [review]);
     if (product) await db.query("DELETE FROM produtos WHERE id=?", [product]);
