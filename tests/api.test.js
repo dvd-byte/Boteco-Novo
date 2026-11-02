@@ -174,6 +174,34 @@ test("API integrada com MariaDB: autenticação, conteúdo, CRUD, vínculos e mo
     );
     content = await (await call("/api/public/conteudo")).json();
     assert.ok(!content.avaliacoes.some((a) => a.id === review));
+    assert.equal((await call("/api/public/produtos?limit=2")).status, 200);
+    const listing = await (await call("/api/public/produtos?limit=2")).json();
+    assert.ok(listing.items.length <= 2);
+    assert.ok(listing.total >= 1);
+    assert.equal((await call("/api/public/produtos/" + product)).status, 200);
+    assert.equal((await call("/api/public/produtos?limit=-1")).status, 400);
+    assert.equal((await call("/api/admin/indicadores")).status, 401);
+    const metrics = await (
+      await call("/api/admin/indicadores", "GET", null, true)
+    ).json();
+    assert.ok(Number(metrics.produtos.total) >= 1);
+    assert.equal(
+      (
+        await call("/api/auth/login", "POST", {
+          email: process.env.ADMIN_EMAIL,
+          password: "incorrect-password",
+        })
+      ).status,
+      401,
+    );
+    assert.equal(
+      (
+        await call("/api/admin/avaliacoes/" + review, "PATCH", {
+          status: "aprovada",
+        })
+      ).status,
+      401,
+    );
     assert.equal((await call("/.env")).status, 404);
     assert.equal((await call("/server/db.js")).status, 404);
     const form = new FormData();
@@ -188,6 +216,20 @@ test("API integrada com MariaDB: autenticação, conteúdo, CRUD, vínculos e mo
       body: form,
     });
     assert.equal(r.status, 400);
+    const image = await require('sharp')({create:{width:2,height:2,channels:3,background:'#ffffff'}}).png().toBuffer();
+    const imageForm = new FormData();
+    imageForm.append('imagem', new Blob([image],{type:'image/png'}),'valid.png');
+    const uploaded = await fetch(base+'/api/admin-upload',{method:'POST',headers:{Origin:origin,Cookie:cookie},body:imageForm});
+    assert.equal(uploaded.status,201);
+    const {url} = await uploaded.json();
+    try {
+      assert.equal((await call('/api/admin/produtos/'+product,'PATCH',{imagem_url:url},true)).status,200);
+      assert.equal((await call(url)).status,200);
+    } finally {
+      await require('node:fs/promises').unlink(require('node:path').resolve(process.env.UPLOAD_DIR||'uploads',url.split('/').pop()));
+    }
+    assert.equal((await call('/api/auth/logout','POST',null,true)).status,204);
+    assert.equal((await call('/api/auth/me','GET',null,true)).status,401);
   } finally {
     if (review) await db.query("DELETE FROM avaliacoes WHERE id=?", [review]);
     if (product) await db.query("DELETE FROM produtos WHERE id=?", [product]);

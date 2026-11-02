@@ -1,4 +1,4 @@
-const { decodeProduct } = require('./product-details');
+const { decodeProduct } = require("./product-details");
 require("dotenv").config();
 const express = require("express"),
   helmet = require("helmet"),
@@ -62,6 +62,11 @@ app.use("/api", (req, res, next) => {
 });
 const wrap = (fn) => (req, res, next) =>
   Promise.resolve(fn(req, res, next)).catch(next);
+require("./read-api")(app, db, auth, wrap);
+app.use("/api", (req, res, next) => {
+  res.set("Cache-Control", "no-store");
+  next();
+});
 const cookieName = production ? "__Host-boteco" : "boteco";
 async function auth(req, res, next) {
   try {
@@ -94,7 +99,7 @@ app.post(
   "/api/auth/login",
   rateLimit({ windowMs: 900000, limit: 10 }),
   wrap(async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body || {};
     if (
       typeof email !== "string" ||
       typeof password !== "string" ||
@@ -188,7 +193,8 @@ app.post(
   "/api/public/avaliacoes",
   rateLimit({ windowMs: 3600000, limit: 5 }),
   wrap(async (req, res) => {
-    const { nome_cliente, nota, comentario, website, started_at } = req.body;
+    const { nome_cliente, nota, comentario, website, started_at } =
+      req.body || {};
     if (
       website ||
       !Number.isFinite(started_at) ||
@@ -219,26 +225,28 @@ app.use("/api/admin", auth, (req, res, next) => {
   res.set("Cache-Control", "no-store");
   next();
 });
-app.post('/api/admin/importar-cardapio', wrap(async (req,res) => {
-  if (typeof req.body.replace !== 'boolean') fail('Confirme o modo de importação');
-  const { importCatalog } = require('./import-catalog');
-  res.json(await importCatalog(db,req.body.replace));
-}));
+app.post(
+  "/api/admin/importar-cardapio",
+  wrap(async (req, res) => {
+    if (typeof req.body?.replace !== "boolean")
+      fail("Confirme o modo de importação");
+    const { importCatalog } = require("./import-catalog");
+    res.json(await importCatalog(db, req.body.replace));
+  }),
+);
 app.get("/api/admin/modelos", (req, res) => res.json(definitions));
 app.get(
   "/api/admin/avaliacoes",
   wrap(async (req, res) =>
     res.json(
-      await db.query(
-        "SELECT * FROM avaliacoes ORDER BY criado_em DESC",
-      ),
+      await db.query("SELECT * FROM avaliacoes ORDER BY criado_em DESC"),
     ),
   ),
 );
 app.patch(
   "/api/admin/avaliacoes/:id",
   wrap(async (req, res) => {
-    if (!["aprovada", "rejeitada", "pendente"].includes(req.body.status))
+    if (!["aprovada", "rejeitada", "pendente"].includes(req.body?.status))
       fail("Status inválido");
     const r = await db.query(
       "UPDATE avaliacoes SET status=?,moderado_em=NOW(),moderado_por=? WHERE id=?",
@@ -251,8 +259,11 @@ app.patch(
 app.get(
   "/api/admin/:table",
   wrap(async (req, res) => {
-    if (!definitions[req.params.table]) return res.sendStatus(404);
-    const rows = await db.query(`SELECT * FROM ${req.params.table} ORDER BY id`);
+    if (!Object.hasOwn(definitions, req.params.table))
+      return res.sendStatus(404);
+    const rows = await db.query(
+      `SELECT * FROM ${req.params.table} ORDER BY id`,
+    );
     res.json(req.params.table === "produtos" ? rows.map(decodeProduct) : rows);
   }),
 );
@@ -298,7 +309,7 @@ app.delete(
   "/api/admin/:table/:id",
   wrap(async (req, res) => {
     const table = req.params.table;
-    if (!definitions[table] || table === "estabelecimento")
+    if (!Object.hasOwn(definitions, table) || table === "estabelecimento")
       fail("Exclusão não permitida");
     const r = await db.query(`DELETE FROM ${table} WHERE id=?`, [
       req.params.id,
@@ -334,6 +345,17 @@ app.post(
     )
       ext = "webp";
     else fail("Use JPEG, PNG ou WebP");
+    try {
+      const sharp = require("sharp");
+      const metadata = await sharp(b, {
+        limitInputPixels: 40000000,
+      }).metadata();
+      if (!["jpeg", "png", "webp"].includes(metadata.format))
+        fail("Formato inválido");
+      await sharp(b, { limitInputPixels: 40000000 }).stats();
+    } catch {
+      fail("Imagem inválida ou excede 40 megapixels");
+    }
     const name = randomBytes(20).toString("hex") + "." + ext;
     await fs.promises.writeFile(path.join(uploadDir, name), b, { flag: "wx" });
     res.status(201).json({ url: "/uploads/" + name });
@@ -345,12 +367,22 @@ app.use(
 );
 app.use("/admin", express.static(path.join(root, "admin")));
 app.use("/imagens", express.static(path.join(root, "imagens")));
-for (const file of ["index.html", "boteco.css", "boteco.js", "cardapio-data.js", "cardapio.js", "cms.js"])
+for (const file of [
+  "index.html",
+  "boteco.css",
+  "boteco.js",
+  "cardapio-data.js",
+  "cardapio.js",
+  "cms.js",
+])
   app.get(file === "index.html" ? "/" : "/" + file, (req, res) =>
     res.sendFile(path.join(root, file)),
   );
 app.use((err, req, res, next) => {
-  console.error(err.code || err.message);
+  console.error({
+    event: "request_failed",
+    code: err.code || err.type || "REQUEST_ERROR",
+  });
   const conflict = [
     "ER_DUP_ENTRY",
     "ER_ROW_IS_REFERENCED_2",
@@ -365,7 +397,9 @@ app.use((err, req, res, next) => {
       error: conflict
         ? "Registro duplicado ou vínculo inválido. Transfira/remova os produtos antes de excluir uma categoria."
         : err.status
-          ? err.message
+          ? err.type === "entity.parse.failed"
+            ? "JSON inválido"
+            : err.message
           : err.code?.startsWith("LIMIT_")
             ? "Arquivo excede o limite de 5 MB"
             : "Não foi possível concluir a operação",

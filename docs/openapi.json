@@ -1,0 +1,461 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Boteco da Vila — rotas principais",
+    "version": "1.0.0",
+    "description": "Índice das rotas principais; contratos completos de CRUD e corpos em BACKEND.md."
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "paths": {
+    "/api/public/conteudo": {
+      "get": {
+        "summary": "GET /api/public/conteudo",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        }
+      }
+    },
+    "/api/public/categorias": {
+      "get": {
+        "summary": "GET /api/public/categorias",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        }
+      }
+    },
+    "/api/public/produtos": {
+      "get": {
+        "summary": "GET /api/public/produtos",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        }
+      }
+    },
+    "/api/public/produtos/{id}": {
+      "get": {
+        "summary": "GET /api/public/produtos/{id}",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "summary": "POST /api/auth/login",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "summary": "POST /api/auth/logout",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    },
+    "/api/auth/me": {
+      "get": {
+        "summary": "GET /api/auth/me",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    },
+    "/api/admin/indicadores": {
+      "get": {
+        "summary": "GET /api/admin/indicadores",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    },
+    "/api/public/avaliacoes": {
+      "post": {
+        "summary": "POST /api/public/avaliacoes",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        }
+      }
+    },
+    "/api/admin/avaliacoes": {
+      "get": {
+        "summary": "GET /api/admin/avaliacoes",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    },
+    "/api/admin/avaliacoes/{id}": {
+      "patch": {
+        "summary": "PATCH /api/admin/avaliacoes/{id}",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ],
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    },
+    "/api/admin-upload": {
+      "post": {
+        "summary": "POST /api/admin-upload",
+        "description": "Campos e exemplos detalhados em BACKEND.md.",
+        "responses": {
+          "200": {
+            "description": "Consulta ou atualização concluída"
+          },
+          "201": {
+            "description": "Registro criado"
+          },
+          "204": {
+            "description": "Operação concluída sem conteúdo"
+          },
+          "400": {
+            "description": "Entrada inválida"
+          },
+          "401": {
+            "description": "Autenticação necessária"
+          },
+          "403": {
+            "description": "Origem inválida"
+          },
+          "404": {
+            "description": "Não encontrado"
+          },
+          "429": {
+            "description": "Limite excedido"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-boteco",
+        "description": "Em desenvolvimento o cookie se chama boteco."
+      }
+    }
+  }
+}

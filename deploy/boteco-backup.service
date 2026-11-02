@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup do banco e uploads Boteco
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /var/www/boteco/deploy/backup.sh
+User=root
