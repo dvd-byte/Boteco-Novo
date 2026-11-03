@@ -272,7 +272,7 @@ app.post(
   wrap(async (req, res) => {
     const table = req.params.table,
       data = validate(table, req.body);
-    await require("./media")(data);
+    await require("./media")(data, app.locals.storage);
     if (table === "estabelecimento") data.id = 1;
     const keys = Object.keys(data);
     const r = await db.query(
@@ -287,7 +287,7 @@ app.patch(
   wrap(async (req, res) => {
     const table = req.params.table,
       data = validate(table, req.body, true);
-    await require("./media")(data);
+    await require("./media")(data, app.locals.storage);
     if (table === "intervalos_funcionamento") {
       const [old] = await db.query(
         "SELECT * FROM intervalos_funcionamento WHERE id=?",
@@ -323,7 +323,7 @@ app.delete(
 const uploadDir = path.resolve(
   process.env.UPLOAD_DIR || path.join(root, "uploads"),
 );
-fs.mkdirSync(uploadDir, { recursive: true });
+app.locals.storage = require("./storage").getStorage();
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024, files: 1 },
@@ -335,32 +335,8 @@ app.post(
   wrap(async (req, res) => {
     const b = req.file?.buffer;
     if (!b) fail("Selecione uma imagem");
-    let ext;
-    if (b.subarray(0, 3).equals(Buffer.from([255, 216, 255]))) ext = "jpg";
-    else if (
-      b.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))
-    )
-      ext = "png";
-    else if (
-      b.toString("ascii", 0, 4) === "RIFF" &&
-      b.toString("ascii", 8, 12) === "WEBP"
-    )
-      ext = "webp";
-    else fail("Use JPEG, PNG ou WebP");
-    try {
-      const sharp = require("sharp");
-      const metadata = await sharp(b, {
-        limitInputPixels: 40000000,
-      }).metadata();
-      if (!["jpeg", "png", "webp"].includes(metadata.format))
-        fail("Formato inválido");
-      await sharp(b, { limitInputPixels: 40000000 }).stats();
-    } catch {
-      fail("Imagem inválida ou excede 40 megapixels");
-    }
-    const name = randomBytes(20).toString("hex") + "." + ext;
-    await fs.promises.writeFile(path.join(uploadDir, name), b, { flag: "wx" });
-    res.status(201).json({ url: "/uploads/" + name });
+    const result = await app.locals.storage.put(b);
+    res.status(201).json({ url: result.url });
   }),
 );
 app.use(

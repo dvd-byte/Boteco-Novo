@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/dvd-byte/Boteco-Novo#readme",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1161.0",
     "cheerio": "^1.2.0",
     "dotenv": "^18.0.9",
     "express": "^5.3.0",

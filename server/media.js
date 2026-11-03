@@ -1,10 +1,17 @@
 const fs = require("node:fs/promises"),
   path = require("node:path");
 const { fail } = require("./validation");
-module.exports = async function validateMedia(data) {
+module.exports = async function validateMedia(
+  data,
+  storage = require("./storage").getStorage(),
+) {
   for (const key of ["imagem_url", "logo_url"]) {
     const value = data[key];
-    if (!value || /^https?:\/\//i.test(value)) continue;
+    if (!value) continue;
+    if (/^https?:\/\//i.test(value)) {
+      await storage.exists(value);
+      continue;
+    }
     let decoded;
     try {
       decoded = decodeURIComponent(value);
