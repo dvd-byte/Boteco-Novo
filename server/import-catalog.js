@@ -5,7 +5,7 @@ const { validate } = require("./validation");
 async function importCatalog(db, replace = false, sharedConnection = null) {
   const sandbox = { window: {} };
   vm.runInNewContext(
-    fs.readFileSync(path.join(__dirname, "../cardapio-data.js"), "utf8"),
+    fs.readFileSync(path.join(__dirname, "../assets/js/cardapio-data.js"), "utf8"),
     sandbox,
   );
   const { categories, products } = JSON.parse(

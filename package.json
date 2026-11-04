@@ -2,7 +2,7 @@
   "name": "boteco-novo",
   "version": "1.0.0",
   "description": "",
-  "main": "boteco.js",
+  "main": "server/app.js",
   "scripts": {
     "start": "node server/app.js",
     "dev": "node --watch server/app.js",

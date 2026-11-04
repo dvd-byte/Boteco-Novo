@@ -36,10 +36,10 @@ test("Site renderiza dados reais da API e envia avaliação para moderação", a
     }
     return { ok: true, json: async () => content };
   };
-  w.eval(fs.readFileSync("cardapio-data.js", "utf8"));
-  w.eval(fs.readFileSync("cardapio.js", "utf8"));
-  w.eval(fs.readFileSync("boteco.js", "utf8"));
-  await w.eval(fs.readFileSync("cms.js", "utf8"));
+  w.eval(fs.readFileSync("assets/js/cardapio-data.js", "utf8"));
+  w.eval(fs.readFileSync("assets/js/cardapio.js", "utf8"));
+  w.eval(fs.readFileSync("assets/js/boteco.js", "utf8"));
+  await w.eval(fs.readFileSync("assets/js/cms.js", "utf8"));
   const d = w.document;
   assert.equal(
     d.querySelectorAll("#menuGrid .menu-card").length,
@@ -49,7 +49,7 @@ test("Site renderiza dados reais da API e envia avaliação para moderação", a
     d.querySelectorAll(".filter-btn").length,
     content.categorias.length,
   );
-  assert.equal(d.querySelectorAll(".hour-card").length, 7);
+  assert.equal(d.querySelectorAll(".hour-card").length, 3);
   assert.equal(
     d.querySelectorAll(".gallery-item").length,
     content.fotos.filter((f) => f.grupo === "galeria").length,

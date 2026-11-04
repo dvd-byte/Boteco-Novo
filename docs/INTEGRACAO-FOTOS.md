@@ -1,5 +1,7 @@
 # Integração de fotografias — entrega ao frontend
 
+> Situação atual (04/11/2026): site e banco implantados na Hostinger; imagens públicas no R2 em https://imagens.verols.com.br. Administrador será cadastrado depois. Relatos de testes e pendências de provisionamento abaixo descrevem a entrega técnica original, não novos testes de produção. Consulte o README para o fluxo atual.
+
 Revisão de 02/11/2026. Somente backend, scripts e testes foram modificados.
 
 ## Produtos e fotos
@@ -16,7 +18,7 @@ imagem_url e imagem_alt podem ser null. URLs de imagens locais são relativas ao
 
 POST/PATCH de produtos, fotos, seções e estabelecimento validam a existência das referências locais fornecidas em imagem_url/logo_url; travessia de diretórios e arquivos ausentes retornam 400 {error}. URLs externas não são verificadas por requisição, evitando SSRF. Arquivos compartilhados não são apagados ao substituir a imagem de um produto. Referências antigas não foram regravadas automaticamente.
 
-## Pendência específica de cardapio.js (responsabilidade do frontend)
+## Pendência específica de assets/js/cardapio.js (responsabilidade do frontend)
 
 O mapeamento em updateBotecoMenu atualmente descarta imagem_url e imagem_alt; renderMenu gera menu-card-text sem elemento img. O responsável deve:
 

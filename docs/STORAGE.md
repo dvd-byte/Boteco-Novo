@@ -1,5 +1,7 @@
 # Armazenamento externo — Hostinger Business
 
+> Situação atual (04/11/2026): site e banco implantados na Hostinger; imagens públicas no R2 em https://imagens.verols.com.br. Administrador será cadastrado depois. Relatos de testes e pendências de provisionamento abaixo descrevem a entrega técnica original, não novos testes de produção. Consulte o README para o fluxo atual.
+
 ## Arquitetura e compatibilidade
 
 POST /api/admin-upload continua recebendo multipart imagem, exige sessão e Origin e retorna 201 {"url":"https://imagens.exemplo.com/images/<sha256>.webp"}. O dashboard já usa essa URL no formulário e salva a associação com POST/PATCH do registro. Não houve alteração de frontend. Upload não conhece o ID do registro: a associação continua sendo a segunda requisição existente, sem nova etapa manual.
@@ -56,4 +58,4 @@ npm test: 14 testes passaram. SDK instalado com zero vulnerabilidades reportadas
 
 Pendentes: provisionamento autorizado do bucket, credenciais, política pública, abertura HTTP real da URL, execução da migração com manifesto durável, teste real após restart e redeploy GitHub da homologação, cópia externa de objetos e restauração. Critério de aceite: URL antiga acessível sem autenticação após redeploy, produto ainda apontando para ela, troca segura e erro do provedor sem mudança no banco.
 
-Nenhuma alteração visual necessária para o contrato {url}. A pendência pré-existente de cardapio.js ignorar fotografias continua com o desenvolvedor frontend, conforme INTEGRACAO-FOTOS.md.
+Nenhuma alteração visual necessária para o contrato {url}. A pendência pré-existente de assets/js/cardapio.js ignorar fotografias continua com o desenvolvedor frontend, conforme INTEGRACAO-FOTOS.md.

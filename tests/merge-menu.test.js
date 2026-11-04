@@ -35,8 +35,8 @@ test('Merge: API replaces local menu without losing responsive preview, filters 
       dispatchEvent(e){for(const fn of events[e.type]||[])fn(e)}
     }};
   vm.createContext(context);
-  for(const file of ['cardapio-data.js','cardapio.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
-  const source=fs.readFileSync('boteco.js','utf8');
+  for(const file of ['assets/js/cardapio-data.js','assets/js/cardapio.js'])vm.runInContext(fs.readFileSync(file,'utf8'),context);
+  const source=fs.readFileSync('assets/js/boteco.js','utf8');
   vm.runInContext(source.slice(source.indexOf('// Category, search'),source.indexOf('// Gallery lightbox')),context);
   vm.runInContext(source.slice(source.indexOf("document.addEventListener('boteco:menu-will-update'"),source.indexOf('// Smooth scroll')),context);
   assert.equal(cards.length,78);
@@ -62,8 +62,8 @@ test('Merge: HTML is conflict-free, loads both systems and server exposes requir
   const html=fs.readFileSync('index.html','utf8');
   assert(!/^(<<<<<<<|=======|>>>>>>>)/m.test(html));
   const scripts=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]);
-  assert.deepEqual(scripts,['cardapio-data.js','cardapio.js','boteco.js','cms.js']);
+  assert.deepEqual(scripts,['assets/js/cardapio-data.js','assets/js/cardapio.js','assets/js/boteco.js','assets/js/cms.js']);
   const server=fs.readFileSync('server/app.js','utf8');
   scripts.forEach(s=>{assert(fs.existsSync(s));assert(server.includes('"'+s+'"'))});
-  assert(fs.readFileSync('cms.js','utf8').includes('window.updateBotecoMenu(data)'));
+  assert(fs.readFileSync('assets/js/cms.js','utf8').includes('window.updateBotecoMenu(data)'));
 });

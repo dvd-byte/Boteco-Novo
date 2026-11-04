@@ -347,11 +347,11 @@ app.use("/admin", express.static(path.join(root, "admin")));
 app.use("/imagens", express.static(path.join(root, "imagens")));
 for (const file of [
   "index.html",
-  "boteco.css",
-  "boteco.js",
-  "cardapio-data.js",
-  "cardapio.js",
-  "cms.js",
+  "assets/css/boteco.css",
+  "assets/js/boteco.js",
+  "assets/js/cardapio-data.js",
+  "assets/js/cardapio.js",
+  "assets/js/cms.js",
 ])
   app.get(file === "index.html" ? "/" : "/" + file, (req, res) =>
     res.sendFile(path.join(root, file)),

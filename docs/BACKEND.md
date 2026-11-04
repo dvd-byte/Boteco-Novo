@@ -1,5 +1,7 @@
 # Backend: contratos e operação
 
+> Situação atual (04/11/2026): site e banco implantados na Hostinger; imagens públicas no R2 em https://imagens.verols.com.br. Administrador será cadastrado depois. Relatos de testes e pendências de provisionamento abaixo descrevem a entrega técnica original, não novos testes de produção. Consulte o README para o fluxo atual.
+
 Escopo desta revisão: apenas server/, testes, dependências e infraestrutura. Nenhuma alteração nos arquivos cliente. Não houve commit, push, publicação ou alteração de DNS.
 
 ## Diagnóstico

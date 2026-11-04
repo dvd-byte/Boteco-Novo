@@ -1,46 +1,48 @@
-# Boteco da Vila — site e painel unificado
+# Boteco da Vila
 
-O painel oficial é `/admin/`: tema escuro, visão geral numérica, análises com gráficos e gerenciamento conectado à API. Não há cadastros demonstrativos nem gravação administrativa em localStorage.
+Site público e dashboard administrativo, com API Express, MariaDB e imagens no Cloudflare R2.
 
-## Ativar em um banco existente
+## Organização
 
-1. Configure `.env` a partir de `.env.example`, com a conexão MariaDB e `PUBLIC_ORIGIN` correspondente ao endereço usado no navegador. Não versione senhas.
-2. Execute `npm ci` e `npm run migrate`. A migração adiciona os campos do cardápio e permite preço sob consulta, sem excluir registros.
-3. Execute `npm start` e abra `http://localhost:3000/admin/` (ou a porta configurada). Entre com o administrador já existente.
-4. Para trazer os 78 itens do PDF, use **Importar cardápio do PDF** em Cardápio, ou `npm run catalog:import`. A importação não sobrescreve produtos previamente importados, nem exclui produtos existentes. Oculte no painel os exemplos antigos que não devem aparecer.
+- `index.html`: estrutura do site público.
+- `assets/css/`: estilos do site.
+- `assets/js/`: comportamento, integração com a API e catálogo de fallback/importação.
+- `admin/`: dashboard e tela de login.
+- `imagens/`: imagens locais ainda utilizadas pelo HTML/CSS e pelos dados iniciais.
+- `server/`: API, autenticação, banco e armazenamento.
+- `scripts/`: ferramentas de migração e manutenção.
+- `tests/`: testes unitários e de integração.
+- `docs/`: documentação da API, imagens e armazenamento.
+- `deploy/`: exemplos opcionais para VPS; systemd/Nginx não são usados na aplicação gerenciada da Hostinger Business.
+- `.data/backups/`: exportações e pacotes privados locais, ignorados pelo Git. Não publicar esses arquivos.
 
-Opcionalmente, `npm run catalog:import -- --replace-menu` importa o catálogo e **oculta** os produtos anteriores sem código do catálogo. Não exclui registros; use apenas se deseja substituir a vitrine anterior pelo PDF.
+## Desenvolvimento
 
-## Banco novo
+Use Node.js 22 ou superior. Configure `.env` a partir de `.env.example`, instale com `npm ci` e execute `npm start`. O servidor inicia por `server/app.js` e serve o site e `/admin/`.
 
-Depois de configurar o MariaDB e executar `npm run migrate`, use `npm run seed` para cadastrar o cardápio atual, textos, fotos, contatos e horários iniciais. O seed recusa um banco com categorias existentes e executa a carga em transação. Para criar um administrador, configure `ADMIN_NAME`, `ADMIN_EMAIL` e `ADMIN_PASSWORD` (mínimo 12 caracteres) e execute `npm run admin:create`.
+O catálogo em `assets/js/cardapio-data.js` continua necessário como fallback e entrada do importador. Quando a API responde, o site utiliza os cadastros do banco.
 
-## Funcionalidades
+## Hostinger e banco existente
 
-- Visão geral: produtos, categorias, média das avaliações aprovadas e pendências.
-- Gráficos: barras para categorias/notas, rosca para status e linha para avaliações recebidas por dia; período de 7 ou 30 dias.
-- Produtos: categoria, ordem, imagem opcional, destaques, selo, variantes de tamanho/preço, preço sob consulta, adicionais, grupos de opções e dias disponíveis.
-- Os preços das variações determinam o menor preço publicado. Campos `variacoes`, `adicionais`, `opcoes` e `dias_disponiveis` são listas JSON validadas pelo backend. O preço único continua compatível com cadastros anteriores.
-- Categorias, textos das seções, fotos da galeria/Instagram, eventos, moderação das avaliações, informações e dois contatos WhatsApp.
-- Horários: dias de funcionamento e múltiplos intervalos por dia, incluindo encerramento no dia seguinte.
-- Upload de imagem preenche o formulário; a publicação ocorre quando o cadastro é salvo. JPEG, PNG e WebP, até 5 MB.
+A entrada da aplicação é `server/app.js`, com a raiz do projeto em `./`. Configure as variáveis privadas DB_*, PUBLIC_ORIGIN e STORAGE_* no painel. Em produção use NODE_ENV=production e STORAGE_PROVIDER=s3.
 
-O frontend preserva busca, filtros desmarcáveis em quatro colunas, prévia de duas linhas com mínimo de quatro cards, Ver mais/menos, centralização do card isolado em duas colunas, detalhes, Scroll Reveal e navegação responsiva. Sem API disponível, o cardápio local do PDF continua sendo usado. Quando a API responde, seus cadastros são a fonte de dados.
+O banco de produção já recebeu o catálogo atualizado. Não execute seed nem importe novamente uma exportação completa sobre esse banco. Alterações de HTML/CSS/JS não exigem reimportar SQL. Publique o código por commit/push e implantação na Hostinger.
 
-Os valores de whisky ambíguos no PDF permanecem sob consulta até confirmação. O horário inicial informado pelo PDF é o da cozinha.
+O cadastro administrativo foi adiado até receber os dados da cliente. Quando estiverem disponíveis, configure ADMIN_NAME, ADMIN_EMAIL e ADMIN_PASSWORD (mínimo 12 caracteres) em ambiente privado com acesso ao banco correto e execute `npm run admin:create`. Remova ADMIN_PASSWORD após o cadastro. Não publique credenciais no Git.
 
-## Testes
+Para um banco novo e isolado, `npm run migrate` cria/atualiza a estrutura e `npm run seed` adiciona dados iniciais. Esses comandos não substituem o procedimento de restauração de um banco existente.
 
-`npm run test:unit` executa regressões de catálogo, validação, renderização, autenticação simulada, formulários, gráficos e moderação, sem conexão com MariaDB.
+## Validação e backups
 
-`npm test` também executa testes de integração com MariaDB e exige um **banco exclusivo de testes**, com administrador configurado. Não execute a suíte de integração em produção. A migração SQL e a conexão real precisam ser verificadas no ambiente onde o MariaDB estiver configurado.
+`npm run test:unit` executa testes sem MariaDB. `npm test` inclui integração e exige banco exclusivo de testes: não executar contra produção.
 
-## API e operação
+`/api/health` verifica a conexão. `/api/public/conteudo` permite conferir os dados publicados. Verifique também imagens e navegação no navegador após a implantação.
 
-- `/api/auth/login`, `/api/auth/logout`, `/api/auth/me`: autenticação por cookie HttpOnly.
-- `/api/public/conteudo`: conteúdo publicado; `/api/public/avaliacoes`: envio para moderação.
-- `/api/admin/modelos`, `/api/admin/:recurso`: consulta e CRUD autenticados.
-- `/api/admin/importar-cardapio`: importação autenticada e transacional do PDF, com propriedade booleana `replace`.
-- `/api/admin-upload`: upload autenticado, campo multipart `imagem`.
+Guarde cópias privadas do banco e dos objetos do R2 fora do servidor da aplicação. O backup local em `.data/` é apenas uma cópia de trabalho. O script de backup de uploads locais em `deploy/` não cobre objetos do R2.
 
-As mutações exigem Origin igual a PUBLIC_ORIGIN. Senhas e fontes do servidor não são servidas. Faça backup do banco e da pasta de uploads; use armazenamento persistente em produção. Consulte os exemplos em `deploy/` para serviço Node e proxy Nginx. Não há loja, pedidos, pagamentos, cupons ou blog.
+## Documentação técnica
+
+- [Backend e API](docs/BACKEND.md)
+- [Contrato de fotografias](docs/INTEGRACAO-FOTOS.md)
+- [Armazenamento e migração](docs/STORAGE.md)
+- [OpenAPI](docs/openapi.json)

@@ -288,12 +288,30 @@
       "Sexta-feira",
       "Sábado",
     ];
-    $(".hours-grid").innerHTML = data.horarios
-      .map(
-        (h) =>
-          `<article class="hour-card"><p class="hour-day">${days[h.dia_semana]}</p><p class="hour-time">${h.fechado ? "Fechado" : h.intervalos.map((i) => `${i.abertura.slice(0, 5)} às ${i.fechamento.slice(0, 5)}${i.encerra_no_dia_seguinte ? " (dia seguinte)" : ""}`).join("<br>")}</p></article>`,
-      )
-      .join("");
+    // Keep the three original cards (including icons and scroll reveal).
+    const groups = [[2, 3, 4, 5], [6], [0, 1]];
+    const formatHours = (day) => {
+      const schedule = data.horarios.find((h) => Number(h.dia_semana) === day);
+      if (!schedule) return "Horário não informado";
+      if (schedule.fechado) return "Sem atendimento da cozinha";
+      return schedule.intervalos.map((i) =>
+        `${i.abertura.slice(0, 5)} às ${i.fechamento.slice(0, 5)}${i.encerra_no_dia_seguinte ? " (dia seguinte)" : ""}`
+      ).join(" / ") || "Horário não informado";
+    };
+    document.querySelectorAll(".hours-grid .hour-card").forEach((card, index) => {
+      const group = groups[index];
+      if (!group) return;
+      const times = group.map(formatHours);
+      const target = card.querySelector(".hour-time");
+      target.replaceChildren();
+      const lines = times.every((time) => time === times[0])
+        ? [times[0]]
+        : group.map((day, i) => `${days[day]}: ${times[i]}`);
+      lines.forEach((line, i) => {
+        if (i) target.append(document.createElement("br"));
+        target.append(document.createTextNode(line));
+      });
+    });
   } catch {
     status.textContent =
       "Serviço temporariamente indisponível. Tente novamente mais tarde.";

@@ -6,3 +6,7 @@ node_modules/
 uploads/*
 !uploads/.gitkeep
 *.log
+
+# Exportacoes e pacotes privados de implantacao
+u448375223_boteco*.sql
+boteco-hostinger-final-*.zip

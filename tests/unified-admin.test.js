@@ -49,7 +49,7 @@ test("Product details validate and derive price without losing weekly availabili
 test("All 78 catalog products pass API validation", () => {
   const vm = require("node:vm"),
     context = { window: {} };
-  vm.runInNewContext(fs.readFileSync("cardapio-data.js", "utf8"), context);
+  vm.runInNewContext(fs.readFileSync("assets/js/cardapio-data.js", "utf8"), context);
   const products = JSON.parse(
     JSON.stringify(context.window.BOTECO_MENU.products),
   );
@@ -217,8 +217,8 @@ test("Site renders API variants, additional prices and availability", () => {
     this.open = true;
   };
   try {
-    w.eval(fs.readFileSync("cardapio-data.js", "utf8"));
-    w.eval(fs.readFileSync("cardapio.js", "utf8"));
+    w.eval(fs.readFileSync("assets/js/cardapio-data.js", "utf8"));
+    w.eval(fs.readFileSync("assets/js/cardapio.js", "utf8"));
     w.updateBotecoMenu({
       categorias: [{ id: 1, nome: "Pratos" }],
       produtos: [{ id: 1, ...validProduct }],
