@@ -275,7 +275,7 @@ function recordsHtml(rows) {
   const table = tableForPage();
   if (!rows.length) return empty("Nenhum cadastro encontrado.");
   if (table === "produtos")
-    return `<div class="table-wrap"><table><thead><tr><th>Produto</th><th>Preço</th><th>Status</th><th>Ações</th></tr></thead><tbody>${rows.map((r) => `<tr><td><div class="product-cell"><img src="${safeUrl(r.imagem_url)}" alt=""><div><strong>${esc(r.nome)}</strong><small>${esc(cache.categorias.find((c) => c.id === r.categoria_id)?.nome || "")} ${r.destaque ? "· ★ Destaque" : ""}</small></div></div></td><td>${catalogPrice(r)}</td><td>${pill(r.ativo ? "active" : "off")}</td><td>${recordActions(r, table)}</td></tr>`).join("")}</tbody></table></div>`;
+    return `<div class="table-wrap product-table"><table><thead><tr><th>Produto</th><th>Preço</th><th>Status</th><th>Ações</th></tr></thead><tbody>${rows.map((r) => `<tr><td><div class="product-cell"><img src="${safeUrl(r.imagem_url)}" alt=""><div><strong>${esc(r.nome)}</strong><small>${esc(cache.categorias.find((c) => c.id === r.categoria_id)?.nome || "")} ${r.destaque ? "· ★ Destaque" : ""}</small></div></div></td><td data-label="Preço">${catalogPrice(r)}</td><td data-label="Status">${pill(r.ativo ? "active" : "off")}</td><td data-label="Ações">${recordActions(r, table)}</td></tr>`).join("")}</tbody></table></div>`;
   return `<div class="${table === "fotos" ? "photo-grid" : "record-list"}">${rows.map((r) => `<article class="${table === "fotos" ? "photo-card" : "panel"}">${table === "fotos" ? `<img src="${safeUrl(r.imagem_url)}" alt="${esc(r.texto_alternativo)}"><div>` : ""}<div class="record-title"><h3>${esc(recordName(r, table))}</h3>${"ativo" in r ? pill(r.ativo ? "active" : "off") : ""}</div><p class="record-summary">${esc(table === "categorias" ? `${cache.produtos.filter((p) => p.categoria_id === r.id).length} produtos · Ordem ${r.ordem}` : table === "horarios_funcionamento" ? (r.fechado ? "Fechado" : "Aberto") : table === "intervalos_funcionamento" ? (r.encerra_no_dia_seguinte ? "Encerra no dia seguinte" : "Mesmo dia") : r.descricao || r.grupo || "")}</p>${recordActions(r, table)}${table === "fotos" ? "</div>" : ""}</article>`).join("")}</div>`;
 }
 function recordActions(r, t) {
@@ -343,6 +343,8 @@ function render() {
   }<div class="toolbar"><div class="toolbar-group">${table === "produtos" ? '<button class="button secondary" id="importCatalog">Importar cardápio do PDF</button>' : ""}<input type="search" id="recordSearch" placeholder="Buscar…" aria-label="Buscar cadastro">${table === "produtos" ? `<select id="categoryFilter" aria-label="Categoria"><option value="">Todas as categorias</option>${cache.categorias.map((c) => `<option value="${c.id}">${esc(c.nome)}</option>`).join("")}</select>` : ""}</div>${table === "estabelecimento" && rows.length ? "" : `<button class="button" id="createRecord">+ ${table === "produtos" ? "Novo produto" : table === "fotos" ? "Nova foto" : "Novo cadastro"}</button>`}</div><div id="records">${recordsHtml(rows)}</div>`;
 }
 function field(name, type, value, row) {
+  if (editing.table === "produtos" && name === "imagem_url")
+    return `<input type="hidden" name="imagem_url" value="${esc(value || "")}">`;
   const label = fieldLabels[name] || name;
   let input = "";
   const attrs = `name="${name}"`;
@@ -370,7 +372,14 @@ function field(name, type, value, row) {
     const number = ["int", "id", "nullableprice"].includes(type);
     input = `<input ${attrs} type="${type === "time" ? "time" : number ? "number" : name === "email" ? "email" : "text"}" value="${esc(value)}" ${number ? `min="0" step="${type === "nullableprice" ? "0.01" : "1"}"` : ""} ${!["optional", "url?", "nullableprice"].includes(type) ? "required" : ""}>`;
   }
-  return `<label class="field ${type === "long" || name.includes("url") ? "full" : ""}">${label}${input}${name === "slug" ? "<small>Use letras minúsculas, números e hífens.</small>" : ""}</label>`;
+  return `<label class="field ${type === "long" || name.includes("url") ? "full" : ""}">${label}${input}${editing.table === "produtos" && productHint(name) ? `<small>${productHint(name)}</small>` : ""}${name === "slug" ? "<small>Use letras minúsculas, números e hífens.</small>" : ""}</label>`;
+}
+function productHint(name) {
+  return ({preco: "Use para um produto com preço único. Se cadastrar tamanhos abaixo, os preços dos tamanhos terão prioridade. Vazio significa valor sob consulta.",
+    imagem_alt: "Opcional: descreva a foto para pessoas que usam leitor de tela. Não é o endereço da imagem.",
+    selo: "Opcional: texto curto, como Mais pedido.",
+    ordem: "Números menores aparecem primeiro na categoria.",
+    ordem_destaque: "Números menores aparecem primeiro. Só tem efeito quando o produto está nos destaques."})[name] || "";
 }
 function detailRow(kind, value = {}) {
   const options = kind === "opcoes";
@@ -412,10 +421,11 @@ function editRecord(table, id) {
         ),
       )
       .join("") +
-    (table === "produtos" ? productDetails(row) : "") +
+
     (["produtos", "secoes", "fotos", "estabelecimento"].includes(table)
-      ? `<label class="field image-upload">Enviar imagem (JPEG, PNG ou WebP, até 5 MB)<input type="file" id="imageUpload" accept="image/jpeg,image/png,image/webp"><small>A imagem enviada preenche o campo de imagem automaticamente.</small></label>`
+      ? `<label class="field image-upload">Enviar imagem (JPEG, PNG ou WebP, até 5 MB)<input type="file" id="imageUpload" accept="image/jpeg,image/png,image/webp"><small>${table === "produtos" ? "Foto opcional. Escolha um arquivo e depois salve o produto para confirmar a alteração." : "A imagem enviada preenche o campo de imagem automaticamente."}</small></label>${table === "produtos" ? `<div class="product-photo-preview full"><img id="productPhotoPreview" ${row.imagem_url ? `src="${safeUrl(row.imagem_url)}"` : ""} alt="Prévia da foto do produto" ${row.imagem_url ? "" : "hidden"}><p id="productPhotoStatus" role="status">${row.imagem_url ? "Foto atual do produto." : "Nenhuma foto cadastrada. Você pode salvar sem foto."}</p><button type="button" class="button" id="removeProductPhoto" ${row.imagem_url ? "" : "hidden"}>Remover foto</button></div>` : ""}`
       : "") +
+    (table === "produtos" ? productDetails(row) : "") +
     '<p class="form-error editor-feedback" id="editorError" role="alert"></p>';
   $("#editor").showModal();
 }
@@ -499,6 +509,15 @@ document.addEventListener("click", async (e) => {
   const b = e.target.closest("button");
   if (!b) return;
   const d = b.dataset;
+  if (b.id === "removeProductPhoto") {
+    $("#editorForm").elements.imagem_url.value = "";
+    $("#productPhotoPreview").hidden = true;
+    $("#productPhotoPreview").removeAttribute("src");
+    $("#productPhotoStatus").textContent = "Foto removida. Salve o produto para confirmar.";
+    $("#imageUpload").value = "";
+    b.hidden = true;
+    return;
+  }
   try {
     if (d.page || d.go) go(d.page || d.go);
     if (d.tab) {
@@ -592,16 +611,31 @@ document.addEventListener("change", async (e) => {
     const fd = new FormData();
     fd.append("imagem", file);
     e.target.disabled = true;
+    const uploadEditor = editing;
+    const photoStatus = $("#productPhotoStatus");
+    const removePhoto = $("#removeProductPhoto");
+    if (removePhoto) removePhoto.disabled = true;
+    if (photoStatus) photoStatus.textContent = "Enviando foto… Aguarde antes de salvar.";
+    const submitButton = $("#editorForm").querySelector('[type="submit"]');
+    if (submitButton) submitButton.disabled = true;
     try {
       const data = await api("admin-upload", { method: "POST", body: fd });
+      if (editing !== uploadEditor) return;
       $("#editorForm").elements[
         editing.table === "estabelecimento" ? "logo_url" : "imagem_url"
       ].value = data.url;
+      const preview = $("#productPhotoPreview");
+      if (preview) { preview.src = data.url; preview.hidden = false; }
+      if (removePhoto) removePhoto.hidden = false;
+      if (photoStatus) photoStatus.textContent = "Foto enviada. Salve o produto para confirmar.";
       toast("Imagem enviada. Salve o cadastro para publicá-la.");
     } catch (err) {
+      if (photoStatus) photoStatus.textContent = "Não foi possível enviar a foto. Tente novamente; a foto anterior foi mantida.";
       toast(err.message);
     } finally {
       e.target.disabled = false;
+      if (submitButton) submitButton.disabled = false;
+      if (removePhoto) removePhoto.disabled = false;
     }
   }
   if (e.target.id === "categoryFilter") filterRecords();
