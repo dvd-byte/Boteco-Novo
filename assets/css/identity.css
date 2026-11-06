@@ -1,14 +1,17 @@
 /* Shared Boteco palette. Typography stays defined by each existing interface. */
 :root {
- --brand-gold: #f57c00; --brand-gold-hover: #ffb15d; --brand-ink: #242322;
- --brand-paper: #f3ead8; --brand-muted: #c0b9a9; --brand-panel: #1e211b;
- --brand-line: #80502b; --brand-radius: 8px; --brand-shadow: 0 12px 32px #0004;
- --brand-texture: repeating-linear-gradient(108deg, #ffffff02 0 1px, transparent 1px 5px), radial-gradient(ellipse at 20% 0, #f57c0009, transparent 70%);
- --primary: var(--brand-gold); --primary-dark: #d95f00;
- --bg: var(--brand-ink); --surface: #1a1d18; --surface2: #292c24;
- --cream: var(--brand-paper); --white: var(--brand-paper); --gray: var(--brand-muted);
- --orange: var(--brand-gold); --ink: var(--brand-paper); --muted: var(--brand-muted);
- --line: var(--brand-line); --paper: var(--brand-ink); --sidebar: #191c17;
+ --soft-amber: #ffd9a3; --golden-hour: #ffb45c; --sunset-orange: #f28b2c;
+ --burnt-sienna: #c35a1a; --deep-amber: #7a2e0b; --rich-espresso: #1a0d06;
+ --brand-gold: var(--sunset-orange); --brand-gold-hover: var(--golden-hour);
+ --brand-ink: var(--rich-espresso); --brand-paper: #fff3e2; --brand-muted: #dbc3a5;
+ --brand-panel: #2b170d; --brand-line: var(--burnt-sienna);
+ --brand-radius: 8px; --brand-shadow: 0 12px 32px #0004;
+ --brand-texture: repeating-linear-gradient(108deg, #ffd9a303 0 1px, transparent 1px 5px), radial-gradient(ellipse at 20% 0, #f28b2c0a, transparent 70%);
+ --primary: var(--sunset-orange); --primary-dark: var(--golden-hour);
+ --bg: var(--rich-espresso); --surface: #241209; --surface2: #432515;
+ --cream: var(--soft-amber); --white: var(--brand-paper); --gray: var(--brand-muted);
+ --orange: var(--sunset-orange); --ink: var(--brand-paper); --muted: var(--brand-muted);
+ --line: var(--brand-line); --paper: var(--rich-espresso); --sidebar: #211007;
  color-scheme: dark;
 }
 body { background-image: var(--brand-texture); }

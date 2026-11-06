@@ -1,13 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
 :root {
   color-scheme: dark;
-  --orange: var(--brand-gold, #f57c00);
+  --orange: var(--brand-gold, #f28b2c);
   --ink: #f0f0ed;
   --muted: #b0b5ac;
-  --line: #343932;
-  --paper: #111410;
+  --line: #7a2e0b;
+  --paper: #1a0d06;
   --green: #9bbd9b;
-  --sidebar: #171d18;
+  --sidebar: #211007;
 }
 * {
   box-sizing: border-box;
@@ -49,7 +49,7 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid var(--brand-gold, #f57c00);
+  outline: 3px solid var(--brand-gold, #f28b2c);
   outline-offset: 3px;
 }
 button {
@@ -128,17 +128,17 @@ button:disabled {
 }
 .nav-item b {
   margin-left: auto;
-  background: var(--brand-gold, #f57c00);
+  background: var(--brand-gold, #f28b2c);
   color: #fff;
   border-radius: 5px;
   padding: 2px 6px;
   font-size: 10px;
 }
 .nav-item:hover {
-  background: #2a342d;
+  background: #432515;
 }
 .nav-item.active {
-  background: var(--brand-gold, #f57c00);
+  background: var(--brand-gold, #f28b2c);
   color: white;
   box-shadow: 0 5px 18px #0002;
 }
@@ -161,7 +161,7 @@ button:disabled {
   place-items: center;
   width: 34px;
   height: 34px;
-  background: #39463c;
+  background: #432515;
   border-radius: 50%;
   font-size: 11px;
 }
@@ -171,7 +171,7 @@ button:disabled {
 .topbar {
   height: 76px;
   border-bottom: 1px solid var(--line);
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -204,12 +204,12 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  background: #302d22;
+  background: #432515;
   border: 1px solid #584128;
   padding: 11px 15px;
   border-radius: 7px;
   font-size: 11px;
-  color: var(--brand-gold-hover, #ffb15d);
+  color: var(--brand-gold-hover, #ffb45c);
 }
 .demo-banner i {
   display: inline-block;
@@ -221,7 +221,7 @@ main {
 }
 .demo-banner button {
   font-size: 10px;
-  color: var(--brand-gold-hover, #ffb15d);
+  color: var(--brand-gold-hover, #ffb45c);
   background: none;
   text-decoration: underline;
   white-space: nowrap;
@@ -271,7 +271,7 @@ h1 {
 }
 .metric,
 .panel {
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   border: 1px solid var(--line);
   border-radius: 12px;
 }
@@ -290,8 +290,8 @@ h1 {
   place-items: center;
   width: 31px;
   height: 31px;
-  background: #302d22;
-  color: var(--brand-gold-hover, #ffb15d);
+  background: #432515;
+  color: var(--brand-gold-hover, #ffb45c);
   border-radius: 8px;
   font-size: 17px;
 }
@@ -335,7 +335,7 @@ h1 {
   margin-bottom: 0;
 }
 .text-button {
-  color: var(--brand-gold-hover, #ffb15d);
+  color: var(--brand-gold-hover, #ffb45c);
   background: none;
   font-size: 11px;
   padding: 0;
@@ -363,7 +363,7 @@ h1 {
   gap: 8px;
 }
 .secondary {
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   border-color: var(--line);
   color: #c5cebe;
 }
@@ -388,7 +388,7 @@ input,
 select,
 textarea {
   border: 1px solid #42493c;
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   border-radius: 7px;
   padding: 11px 12px;
   color: var(--ink);
@@ -415,7 +415,7 @@ th {
 td,
 th {
   padding: 14px 12px;
-  border-bottom: 1px solid #30392d;
+  border-bottom: 1px solid #432515;
 }
 tr:last-child td {
   border-bottom: 0;
@@ -539,7 +539,7 @@ tr:last-child td {
 }
 .quick-link {
   border: 1px solid var(--line);
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   border-radius: 9px;
   padding: 17px;
   text-align: left;
@@ -618,7 +618,7 @@ tr:last-child td {
   flex-shrink: 0;
 }
 .donut-center {
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   width: 126px;
   height: 126px;
   border-radius: 50%;
@@ -684,7 +684,7 @@ tr:last-child td {
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow: hidden;
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
 }
 .photo-card img {
   width: 100%;
@@ -736,7 +736,7 @@ tr:last-child td {
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   margin-bottom: 12px;
 }
 .review-card p {
@@ -789,7 +789,7 @@ tr:last-child td {
   transform: translateY(0);
 }
 dialog {
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -1134,7 +1134,7 @@ footer {
 .dialog-actions {
   position: sticky;
   bottom: -28px;
-  background: var(--brand-panel, #1e211b);
+  background: var(--brand-panel, #2b170d);
   padding: 15px 0;
 }
 .admin-editor {
