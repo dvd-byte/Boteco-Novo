@@ -204,7 +204,7 @@
       document
         .querySelectorAll(".logo-text")
         .forEach((el) => (el.textContent = info.nome));
-      document.title = info.nome;
+      document.title = `${info.nome}${info.cidade ? ` em ${info.cidade}` : ""} | Cardápio e Petiscos`;
       const address = document.querySelector('.footer-col a[href="#location"]');
       if (address) address.textContent = info.endereco + ", " + info.numero;
       document

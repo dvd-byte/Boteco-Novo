@@ -347,6 +347,8 @@ app.use("/admin", express.static(path.join(root, "admin")));
 app.use("/imagens", express.static(path.join(root, "imagens")));
 for (const file of [
   "index.html",
+  "robots.txt",
+  "sitemap.xml",
   "assets/css/boteco.css",
   "assets/css/identity.css",
   "assets/css/vintage.css",
