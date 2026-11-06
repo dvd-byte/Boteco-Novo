@@ -1,0 +1,17 @@
+/* Shared Boteco palette. Typography stays defined by each existing interface. */
+:root {
+ --brand-gold: #fdb901; --brand-gold-hover: #ffd04a; --brand-ink: #141613;
+ --brand-paper: #f3ead8; --brand-muted: #c0b9a9; --brand-panel: #1e211b;
+ --brand-line: #80651e; --brand-radius: 8px; --brand-shadow: 0 12px 32px #0004;
+ --brand-texture: repeating-linear-gradient(108deg, #ffffff02 0 1px, transparent 1px 5px), radial-gradient(ellipse at 20% 0, #fdb90109, transparent 70%);
+ --primary: var(--brand-gold); --primary-dark: var(--brand-gold-hover);
+ --bg: var(--brand-ink); --surface: #1a1d18; --surface2: #292c24;
+ --cream: var(--brand-paper); --white: var(--brand-paper); --gray: var(--brand-muted);
+ --orange: var(--brand-gold); --ink: var(--brand-paper); --muted: var(--brand-muted);
+ --line: var(--brand-line); --paper: var(--brand-ink); --sidebar: #191c17;
+ color-scheme: dark;
+}
+body { background-image: var(--brand-texture); }
+:where(button,a,input,textarea,select):focus-visible { outline: 2px solid var(--brand-gold-hover); outline-offset: 4px; }
+:where(input,textarea,select) { accent-color: var(--brand-gold); }
+::selection { background: var(--brand-gold); color: var(--brand-ink); }

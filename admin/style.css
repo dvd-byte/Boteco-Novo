@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
 :root {
   color-scheme: dark;
-  --orange: #ed791e;
+  --orange: var(--brand-gold, #fdb901);
   --ink: #f0f0ed;
   --muted: #b0b5ac;
   --line: #343932;
@@ -49,7 +49,7 @@ a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 3px solid #ed791e;
+  outline: 3px solid var(--brand-gold, #fdb901);
   outline-offset: 3px;
 }
 button {
@@ -128,7 +128,7 @@ button:disabled {
 }
 .nav-item b {
   margin-left: auto;
-  background: #ed791e;
+  background: var(--brand-gold, #fdb901);
   color: #fff;
   border-radius: 5px;
   padding: 2px 6px;
@@ -138,7 +138,7 @@ button:disabled {
   background: #2a342d;
 }
 .nav-item.active {
-  background: #ed791e;
+  background: var(--brand-gold, #fdb901);
   color: white;
   box-shadow: 0 5px 18px #0002;
 }
@@ -171,7 +171,7 @@ button:disabled {
 .topbar {
   height: 76px;
   border-bottom: 1px solid var(--line);
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -204,12 +204,12 @@ main {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  background: #30261a;
+  background: #302d22;
   border: 1px solid #584128;
   padding: 11px 15px;
   border-radius: 7px;
   font-size: 11px;
-  color: #efbb7c;
+  color: var(--brand-gold-hover, #ffd04a);
 }
 .demo-banner i {
   display: inline-block;
@@ -221,7 +221,7 @@ main {
 }
 .demo-banner button {
   font-size: 10px;
-  color: #efbb7c;
+  color: var(--brand-gold-hover, #ffd04a);
   background: none;
   text-decoration: underline;
   white-space: nowrap;
@@ -271,7 +271,7 @@ h1 {
 }
 .metric,
 .panel {
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   border: 1px solid var(--line);
   border-radius: 12px;
 }
@@ -290,8 +290,8 @@ h1 {
   place-items: center;
   width: 31px;
   height: 31px;
-  background: #38291e;
-  color: #ffa65e;
+  background: #302d22;
+  color: var(--brand-gold-hover, #ffd04a);
   border-radius: 8px;
   font-size: 17px;
 }
@@ -335,7 +335,7 @@ h1 {
   margin-bottom: 0;
 }
 .text-button {
-  color: #ffa65e;
+  color: var(--brand-gold-hover, #ffd04a);
   background: none;
   font-size: 11px;
   padding: 0;
@@ -363,7 +363,7 @@ h1 {
   gap: 8px;
 }
 .secondary {
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   border-color: var(--line);
   color: #c5cebe;
 }
@@ -388,7 +388,7 @@ input,
 select,
 textarea {
   border: 1px solid #42493c;
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   border-radius: 7px;
   padding: 11px 12px;
   color: var(--ink);
@@ -539,7 +539,7 @@ tr:last-child td {
 }
 .quick-link {
   border: 1px solid var(--line);
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   border-radius: 9px;
   padding: 17px;
   text-align: left;
@@ -618,7 +618,7 @@ tr:last-child td {
   flex-shrink: 0;
 }
 .donut-center {
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   width: 126px;
   height: 126px;
   border-radius: 50%;
@@ -684,7 +684,7 @@ tr:last-child td {
   border: 1px solid var(--line);
   border-radius: 10px;
   overflow: hidden;
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
 }
 .photo-card img {
   width: 100%;
@@ -736,7 +736,7 @@ tr:last-child td {
   padding: 20px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   margin-bottom: 12px;
 }
 .review-card p {
@@ -789,7 +789,7 @@ tr:last-child td {
   transform: translateY(0);
 }
 dialog {
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   color: var(--ink);
   border: 1px solid var(--line);
   border-radius: 14px;
@@ -1134,7 +1134,7 @@ footer {
 .dialog-actions {
   position: sticky;
   bottom: -28px;
-  background: #1d231b;
+  background: var(--brand-panel, #1e211b);
   padding: 15px 0;
 }
 .admin-editor {

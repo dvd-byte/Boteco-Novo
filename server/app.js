@@ -348,6 +348,8 @@ app.use("/imagens", express.static(path.join(root, "imagens")));
 for (const file of [
   "index.html",
   "assets/css/boteco.css",
+  "assets/css/identity.css",
+  "assets/css/vintage.css",
   "assets/js/boteco.js",
   "assets/js/cardapio-data.js",
   "assets/js/cardapio.js",

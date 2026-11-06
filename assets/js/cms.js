@@ -169,7 +169,7 @@
     const info = data.estabelecimento;
     if (info) {
       document.querySelectorAll(".logo-image").forEach((i) => {
-        i.src = info.logo_url;
+        if (!i.classList.contains("logo-full") && !i.classList.contains("logo-compact")) i.src = info.logo_url;
         i.alt = info.nome;
       });
       document
@@ -225,7 +225,7 @@
         json.name = info.nome;
         json.description = info.descricao;
         json.telephone = info.telefone;
-        json.image = info.logo_url;
+        json.image = new URL("/imagens/logonova.png", window.location.origin).href;
         json.address = {
           ...json.address,
           streetAddress: info.endereco + ", " + info.numero,
