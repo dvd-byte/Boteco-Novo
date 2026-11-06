@@ -1,5 +1,5 @@
 /* Public site: chalkboard, aged brass and restrained engraved details. */
-.navbar, .navbar.scrolled { background: #141613f5; border-bottom: 1px solid var(--brand-line); box-shadow: 0 4px 20px #0003; }
+.navbar, .navbar.scrolled { background: #242322f5; border-bottom: 1px solid var(--brand-line); box-shadow: 0 4px 20px #0003; }
 .logo-icon { width: 170px; height: 86px; background: transparent; border-radius: 0; overflow: visible; }
 .logo-icon .logo-image { width: 100%; height: 100%; object-fit: contain; }
 .logo-text { display: none; }
@@ -16,11 +16,11 @@
 .sec-header::after { content: "◆"; display: block; width: 160px; margin: 24px auto 0; color: var(--brand-gold); font-size: 12px; background: linear-gradient(var(--brand-line),var(--brand-line)) left center/64px 1px no-repeat,linear-gradient(var(--brand-line),var(--brand-line)) right center/64px 1px no-repeat; }
 .sec-sub { color: var(--brand-gold); letter-spacing: .18em; }
 .features,.specials,.menu,.about,.gallery,.events,.reviews,.instagram,.location,.hours,.footer { background-image: var(--brand-texture); }
-.menu { border-block: 1px solid var(--brand-line); padding-block: 88px; background-color: #161a15; }
+.menu { border-block: 1px solid var(--brand-line); padding-block: 88px; background-color: var(--brand-ink); }
 .menu-filters { gap: 10px; padding: 14px; border-block: 1px solid var(--brand-line); max-width: 940px; }
 .filter-btn { color: var(--brand-paper); border-color: var(--brand-line); background: #20241d; min-height: 48px; }
 .filter-btn:hover { background: #343626; color: var(--brand-paper); }
-.filter-btn.active { background: var(--brand-gold); color: var(--brand-ink); box-shadow: inset 0 0 0 3px #14161325; }
+.filter-btn.active { background: var(--brand-gold); color: var(--brand-ink); box-shadow: inset 0 0 0 3px #24232225; }
 .menu-card,.special-card { border: 1px solid var(--brand-line); border-radius: var(--brand-radius); background: var(--brand-panel); background-image: var(--brand-texture); box-shadow: var(--brand-shadow); }
 .menu-body { padding: 24px; height: 100%; }
 .menu-card-heading { border-bottom: 1px solid var(--brand-line); padding-bottom: 14px; margin-bottom: 18px; }
@@ -41,7 +41,7 @@
 .about-img img,.events-img img { border-radius: 4px; }
 .about-text,.events-text { border-top: 1px solid var(--brand-line); padding-top: 28px; }
 .gallery-item,.insta-item { border: 1px solid var(--brand-line); border-radius: 5px; }
-.gallery-overlay { background: #141613ab; }
+.gallery-overlay { background: #242322ab; }
 .gallery-overlay i { color: var(--brand-gold); }
 .footer { border-top: 3px double var(--brand-line); }
 .footer .logo-icon { width: 220px; height: 124px; }
@@ -53,13 +53,13 @@
 .menu-search input, .reviews input, .reviews textarea, .reviews select { background: #12150f; color: var(--brand-paper); border: 1px solid var(--brand-line); border-radius: 4px; }
 input::placeholder,textarea::placeholder { color: #a9a595; opacity: 1; }
 .menu-empty { color: var(--brand-muted); border: 1px dashed var(--brand-line); padding: 24px; }
-@media(max-width:1024px) { .nav-menu { background: #141613; border-left: 1px solid var(--brand-line); } }
+@media(max-width:1024px) { .nav-menu { background: #242322; border-left: 1px solid var(--brand-line); } }
 @media(max-width:800px) { .navbar .logo-icon { width: 64px; height: 68px; } .navbar .logo-full { display:none; } .navbar .logo-compact { display:block; } .menu { padding-block: 56px; } .menu-body,.special-body { padding:20px; } }
 @media(max-width:500px) { .menu-filters { padding:10px 0; gap:8px; } .filter-btn { font-size:.7rem; padding:8px 4px; } .sec-header::after { margin-top:18px; } .menu-price { font-size:1.05rem; } .menu-body h3 { font-size:1.05rem; } .product-dialog { max-width:calc(100vw - 28px); } .footer .logo-icon { width:190px; } }
 @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition:none !important; animation:none !important; } }
 
 .logo-icon .logo-image { border-radius:0; }
 .logo-icon .logo-compact { display:none; }
-.insta-overlay { background:#141613ce; color:var(--brand-paper); }
+.insta-overlay { background:#242322ce; color:var(--brand-paper); }
 .reviews-stars,.review-star,.review-star:hover,.review-star.selected,.review-card-stars,.rating-icon,.special-stars { color:var(--brand-gold); }
 @media(max-width:800px) { .navbar .logo-icon .logo-full { display:none; } .navbar .logo-icon .logo-compact { display:block; } }

@@ -4,7 +4,7 @@ body,.sidebar,.topbar,.panel,.metric,dialog { background-image:var(--brand-textu
 .button,.nav-item.active { background:var(--brand-gold); color:var(--brand-ink); }
 .button.secondary,.icon-button { background:#292c24; color:var(--brand-paper); border-color:var(--brand-line); }
 .button.danger { background:#632f2c; color:#ffe8e3; }
-.field input,.field textarea,.field select,input[type=search] { background:#141613; color:var(--brand-paper); border-color:var(--brand-line); }
+.field input,.field textarea,.field select,input[type=search] { background:#242322; color:var(--brand-paper); border-color:var(--brand-line); }
 .login-panel { border-top:3px double var(--brand-gold); box-shadow:var(--brand-shadow); }
 .login-panel > img { width:240px; height:136px; object-fit:contain; border-radius:0; }
 .brand img { object-fit:contain; background:transparent; border-radius:0; }
