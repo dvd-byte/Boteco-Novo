@@ -1196,3 +1196,15 @@ footer {
  .detail-row { grid-template-columns:minmax(0,1fr) minmax(0,100px); }
  dialog { max-width:calc(100vw - 24px); }
 }
+
+/* Shared editor and record actions on mobile. */
+.record-list, .photo-grid, .photo-card, .record-list .panel { min-width: 0; }
+.record-title, .record-summary, .photo-card p { overflow-wrap: anywhere; }
+@media (max-width: 700px) {
+  .admin-editor .form-grid { grid-template-columns: minmax(0, 1fr); }
+  .record-list .actions, .photo-card .actions, .review-card .actions, .dialog-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+  .record-list .button, .photo-card .button, .review-card .button, .admin-editor .button { min-height: 44px; }
+  .admin-editor input:not([type="checkbox"]), .admin-editor select, .admin-editor textarea { font-size: 16px; }
+  .admin-editor fieldset { min-width: 0; }
+  .dialog-actions .button { flex: 1 1 auto; }
+}

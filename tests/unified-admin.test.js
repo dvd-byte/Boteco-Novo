@@ -116,6 +116,7 @@ test("Unified admin: authentication, real metrics, charts, details editor, save,
       authenticated = false;
       return { status: 204, ok: true };
     } else if (url === "/api/admin/modelos") payload = definitions;
+    else if (url === "/api/admin-upload") payload = { url: "https://example.com/upload.webp" };
     else {
       const [table, id] = url.slice("/api/admin/".length).split("/");
       if (options.method === "PATCH") {
@@ -171,6 +172,32 @@ test("Unified admin: authentication, real metrics, charts, details editor, save,
     ]) {
       d.querySelector(`[data-page="${page}"]`).click();
       assert(d.querySelector("#view").innerHTML.length > 50, page);
+    }
+    // Every image editor hides technical URLs and preserves required-image rules.
+    for (const [pageName, key] of [["gallery", "imagem_url"], ["sections", "imagem_url"], ["settings", "logo_url"]]) {
+      d.querySelector(`[data-page="${pageName}"]`).click();
+      d.querySelector("#createRecord").click();
+      assert.equal(d.querySelector(`[name="${key}"]`).type, "hidden");
+      assert(d.querySelector("#productPhotoPreview").hidden);
+      assert(!d.querySelector("#productPhotoPreview").hasAttribute("src"));
+      if (pageName !== "sections") {
+        d.querySelector("#editorForm").dispatchEvent(new w.Event("submit", { cancelable: true }));
+        await flush();
+        assert(d.querySelector("#editorError").textContent.includes("imagem"));
+        assert(d.querySelector("#editor").open);
+      }
+      const upload = d.querySelector("#imageUpload");
+      Object.defineProperty(upload, "files", { value: [new w.File(["image"], "photo.webp", { type: "image/webp" })] });
+      upload.dispatchEvent(new w.Event("change", { bubbles: true }));
+      assert(d.querySelector('#editorForm [type="submit"]').disabled);
+      await flush();
+      assert.equal(d.querySelector(`[name="${key}"]`).value, "https://example.com/upload.webp");
+      assert(!d.querySelector("#productPhotoPreview").hidden);
+      assert(!d.querySelector('#editorForm [type="submit"]').disabled);
+      d.querySelector("#removeProductPhoto").hidden = false;
+      d.querySelector("#removeProductPhoto").click();
+      assert.equal(d.querySelector(`[name="${key}"]`).value, "");
+      d.querySelector("#cancelEditor").click();
     }
     d.querySelector('[data-page="charts"]').click();
     assert.equal(d.querySelectorAll(".chart-grid .panel").length, 4);

@@ -343,9 +343,10 @@ function render() {
   }<div class="toolbar"><div class="toolbar-group">${table === "produtos" ? '<button class="button secondary" id="importCatalog">Importar cardápio do PDF</button>' : ""}<input type="search" id="recordSearch" placeholder="Buscar…" aria-label="Buscar cadastro">${table === "produtos" ? `<select id="categoryFilter" aria-label="Categoria"><option value="">Todas as categorias</option>${cache.categorias.map((c) => `<option value="${c.id}">${esc(c.nome)}</option>`).join("")}</select>` : ""}</div>${table === "estabelecimento" && rows.length ? "" : `<button class="button" id="createRecord">+ ${table === "produtos" ? "Novo produto" : table === "fotos" ? "Nova foto" : "Novo cadastro"}</button>`}</div><div id="records">${recordsHtml(rows)}</div>`;
 }
 function field(name, type, value, row) {
-  if (editing.table === "produtos" && name === "imagem_url")
-    return `<input type="hidden" name="imagem_url" value="${esc(value || "")}">`;
-  const label = fieldLabels[name] || name;
+  if (["imagem_url", "logo_url"].includes(name))
+    return `<input type="hidden" name="${name}" value="${esc(value || "")}">`;
+  const label = name === "descricao" && editing.table !== "produtos" ? "Descrição" : fieldLabels[name] || name;
+  const hint = fieldHint(name);
   let input = "";
   const attrs = `name="${name}"`;
   const select = (items) =>
@@ -365,14 +366,14 @@ function field(name, type, value, row) {
     ]);
   else if (name === "chave") input = select(Object.entries(sectionNames));
   else if (type === "bool")
-    return `<label class="field"><span class="checkbox-label"><input type="checkbox" ${attrs} ${value ? "checked" : ""}>${label}</span></label>`;
+    return `<label class="field"><span class="checkbox-label"><input type="checkbox" ${attrs} ${value ? "checked" : ""}>${label}</span>${hint ? `<small>${hint}</small>` : ""}</label>`;
   else if (type === "long")
     input = `<textarea ${attrs}>${esc(value)}</textarea>`;
   else {
     const number = ["int", "id", "nullableprice"].includes(type);
     input = `<input ${attrs} type="${type === "time" ? "time" : number ? "number" : name === "email" ? "email" : "text"}" value="${esc(value)}" ${number ? `min="0" step="${type === "nullableprice" ? "0.01" : "1"}"` : ""} ${!["optional", "url?", "nullableprice"].includes(type) ? "required" : ""}>`;
   }
-  return `<label class="field ${type === "long" || name.includes("url") ? "full" : ""}">${label}${input}${editing.table === "produtos" && productHint(name) ? `<small>${productHint(name)}</small>` : ""}${name === "slug" ? "<small>Use letras minúsculas, números e hífens.</small>" : ""}</label>`;
+  return `<label class="field ${type === "long" || name.includes("url") ? "full" : ""}">${label}${input}${hint ? `<small>${hint}</small>` : ""}${name === "slug" ? "<small>Use letras minúsculas, números e hífens.</small>" : ""}</label>`;
 }
 function productHint(name) {
   return ({preco: "Use para um produto com preço único. Se cadastrar tamanhos abaixo, os preços dos tamanhos terão prioridade. Vazio significa valor sob consulta.",
@@ -380,6 +381,38 @@ function productHint(name) {
     selo: "Opcional: texto curto, como Mais pedido.",
     ordem: "Números menores aparecem primeiro na categoria.",
     ordem_destaque: "Números menores aparecem primeiro. Só tem efeito quando o produto está nos destaques."})[name] || "";
+}
+function fieldHint(name) {
+  if (editing.table === "produtos" && productHint(name)) return productHint(name);
+  return ({
+    ordem: "Números menores aparecem primeiro.",
+    ativo: "Desmarque para ocultar no site sem excluir o cadastro.",
+    imagem_alt: "Opcional: descreva o que aparece na imagem para quem usa leitor de tela.",
+    texto_alternativo: "Descreva o que aparece na foto. Esse texto ajuda quem usa leitor de tela.",
+    grupo: "Escolha onde a foto será exibida: galeria ou faixa do Instagram.",
+    legenda: "Opcional: um texto curto sobre a foto.",
+    link_url: "Opcional: cole o endereço completo da publicação, começando com https://.",
+    botao_texto: "Opcional: texto que aparece no botão.",
+    botao_url: "Opcional: endereço de destino do botão, começando com https://.",
+    chave: "Escolha a seção do site que receberá este conteúdo.",
+    whatsapp: "Somente números, incluindo 55 (Brasil), DDD e telefone.",
+    whatsapp_secundario: "Opcional: use o mesmo formato do WhatsApp principal.",
+    maps_url: "Cole o link do local no Google Maps.",
+    maps_embed_url: "No Google Maps, vá em Compartilhar → Incorporar um mapa. Cole apenas o endereço do atributo src, sem o código iframe.",
+    instagram_url: "Cole o endereço completo do perfil, começando com https://.",
+    facebook_url: "Opcional: endereço completo da página, começando com https://.",
+    fechado: "Marque quando não houver atendimento neste dia.",
+    horario_id: "Selecione o dia ao qual este intervalo de atendimento pertence.",
+    encerra_no_dia_seguinte: "Marque se o atendimento terminar após a meia-noite.",
+    estado: "Use a sigla de duas letras, como SP."
+  })[name] || "";
+}
+function imageEditor(table, row) {
+  const key = table === "estabelecimento" ? "logo_url" : "imagem_url";
+  if (!models[table][key]) return "";
+  const required = models[table][key] === "url";
+  const url = row[key];
+  return `<label class="field image-upload">${key === "logo_url" ? "Logo" : "Imagem"} ${required ? "(obrigatória)" : "(opcional)"}<input type="file" id="imageUpload" accept="image/jpeg,image/png,image/webp"><small>Escolha um arquivo JPEG, PNG ou WebP de até 5 MB. Depois do envio, salve o cadastro para confirmar.</small></label><div class="product-photo-preview full"><img id="productPhotoPreview" ${url ? `src="${safeUrl(url)}"` : ""} alt="Prévia da imagem cadastrada" ${url ? "" : "hidden"}><p id="productPhotoStatus" role="status">${url ? "Imagem atual. Escolha outro arquivo para substituí-la." : required ? "Envie uma imagem antes de salvar." : "Nenhuma imagem cadastrada. Você pode salvar sem imagem."}</p><button type="button" class="button" id="removeProductPhoto" ${url ? "" : "hidden"}>Remover imagem</button></div>`;
 }
 function detailRow(kind, value = {}) {
   const options = kind === "opcoes";
@@ -401,9 +434,9 @@ function editRecord(table, id) {
   if (!id && table === "secoes" && ["content", "events"].includes(page))
     row = { chave: page === "content" ? "o_boteco" : "events" };
   editing = { table, id };
-  $("#editorTitle").textContent = id
-    ? "Editar " + (table === "produtos" ? "produto" : "cadastro")
-    : "Novo cadastro";
+  const recordLabel = { produtos: "produto", categorias: "categoria", fotos: "foto", secoes: "seção", estabelecimento: "informações do estabelecimento", horarios_funcionamento: "dia de funcionamento", intervalos_funcionamento: "intervalo de atendimento" }[table] || "cadastro";
+  $("#editorTitle").textContent = `${id ? "Editar" : "Adicionar"} ${recordLabel}`;
+  $("#editorForm").querySelector('[type="submit"]').disabled = false;
   $("#editorFields").innerHTML =
     Object.entries(models[table])
       .filter(([, type]) => type !== "details")
@@ -422,9 +455,7 @@ function editRecord(table, id) {
       )
       .join("") +
 
-    (["produtos", "secoes", "fotos", "estabelecimento"].includes(table)
-      ? `<label class="field image-upload">Enviar imagem (JPEG, PNG ou WebP, até 5 MB)<input type="file" id="imageUpload" accept="image/jpeg,image/png,image/webp"><small>${table === "produtos" ? "Foto opcional. Escolha um arquivo e depois salve o produto para confirmar a alteração." : "A imagem enviada preenche o campo de imagem automaticamente."}</small></label>${table === "produtos" ? `<div class="product-photo-preview full"><img id="productPhotoPreview" ${row.imagem_url ? `src="${safeUrl(row.imagem_url)}"` : ""} alt="Prévia da foto do produto" ${row.imagem_url ? "" : "hidden"}><p id="productPhotoStatus" role="status">${row.imagem_url ? "Foto atual do produto." : "Nenhuma foto cadastrada. Você pode salvar sem foto."}</p><button type="button" class="button" id="removeProductPhoto" ${row.imagem_url ? "" : "hidden"}>Remover foto</button></div>` : ""}`
-      : "") +
+    imageEditor(table, row) +
     (table === "produtos" ? productDetails(row) : "") +
     '<p class="form-error editor-feedback" id="editorError" role="alert"></p>';
   $("#editor").showModal();
@@ -510,10 +541,10 @@ document.addEventListener("click", async (e) => {
   if (!b) return;
   const d = b.dataset;
   if (b.id === "removeProductPhoto") {
-    $("#editorForm").elements.imagem_url.value = "";
+    $("#editorForm").elements[editing.table === "estabelecimento" ? "logo_url" : "imagem_url"].value = "";
     $("#productPhotoPreview").hidden = true;
     $("#productPhotoPreview").removeAttribute("src");
-    $("#productPhotoStatus").textContent = "Foto removida. Salve o produto para confirmar.";
+    $("#productPhotoStatus").textContent = "Foto removida. Salve o cadastro para confirmar.";
     $("#imageUpload").value = "";
     b.hidden = true;
     return;
@@ -612,6 +643,7 @@ document.addEventListener("change", async (e) => {
     fd.append("imagem", file);
     e.target.disabled = true;
     const uploadEditor = editing;
+    uploadEditor.uploading = true;
     const photoStatus = $("#productPhotoStatus");
     const removePhoto = $("#removeProductPhoto");
     if (removePhoto) removePhoto.disabled = true;
@@ -627,14 +659,15 @@ document.addEventListener("change", async (e) => {
       const preview = $("#productPhotoPreview");
       if (preview) { preview.src = data.url; preview.hidden = false; }
       if (removePhoto) removePhoto.hidden = false;
-      if (photoStatus) photoStatus.textContent = "Foto enviada. Salve o produto para confirmar.";
+      if (photoStatus) photoStatus.textContent = "Foto enviada. Salve o cadastro para confirmar.";
       toast("Imagem enviada. Salve o cadastro para publicá-la.");
     } catch (err) {
       if (photoStatus) photoStatus.textContent = "Não foi possível enviar a foto. Tente novamente; a foto anterior foi mantida.";
       toast(err.message);
     } finally {
       e.target.disabled = false;
-      if (submitButton) submitButton.disabled = false;
+      uploadEditor.uploading = false;
+      if (submitButton && editing === uploadEditor) submitButton.disabled = false;
       if (removePhoto) removePhoto.disabled = false;
     }
   }
@@ -658,12 +691,17 @@ document.addEventListener("input", (e) => {
 });
 $("#editorForm").addEventListener("submit", async (e) => {
   e.preventDefault();
-  if (busy) return;
+  if (busy || editing?.uploading) return;
   const submit = e.target.querySelector("[type=submit]");
   submit.disabled = true;
   $("#editorError").textContent = "";
   try {
     const body = collectForm(e.target);
+    const imageKey = editing.table === "estabelecimento" ? "logo_url" : "imagem_url";
+    if (models[editing.table][imageKey] === "url" && !body[imageKey]) {
+      $("#imageUpload").focus();
+      throw new Error("Envie uma imagem antes de salvar este cadastro.");
+    }
     await mutate(() =>
       api("admin/" + editing.table + (editing.id ? "/" + editing.id : ""), {
         method: editing.id ? "PATCH" : "POST",
