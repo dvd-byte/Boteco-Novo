@@ -1,10 +1,10 @@
 /* Shared Boteco palette. Typography stays defined by each existing interface. */
 :root {
- --brand-gold: #fdb901; --brand-gold-hover: #ffd04a; --brand-ink: #141613;
+ --brand-gold: #f57c00; --brand-gold-hover: #ffb15d; --brand-ink: #141613;
  --brand-paper: #f3ead8; --brand-muted: #c0b9a9; --brand-panel: #1e211b;
- --brand-line: #80651e; --brand-radius: 8px; --brand-shadow: 0 12px 32px #0004;
- --brand-texture: repeating-linear-gradient(108deg, #ffffff02 0 1px, transparent 1px 5px), radial-gradient(ellipse at 20% 0, #fdb90109, transparent 70%);
- --primary: var(--brand-gold); --primary-dark: var(--brand-gold-hover);
+ --brand-line: #80502b; --brand-radius: 8px; --brand-shadow: 0 12px 32px #0004;
+ --brand-texture: repeating-linear-gradient(108deg, #ffffff02 0 1px, transparent 1px 5px), radial-gradient(ellipse at 20% 0, #f57c0009, transparent 70%);
+ --primary: var(--brand-gold); --primary-dark: #d95f00;
  --bg: var(--brand-ink); --surface: #1a1d18; --surface2: #292c24;
  --cream: var(--brand-paper); --white: var(--brand-paper); --gray: var(--brand-muted);
  --orange: var(--brand-gold); --ink: var(--brand-paper); --muted: var(--brand-muted);
