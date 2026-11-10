@@ -104,8 +104,10 @@
         }
       }
       if (s.imagem_url) {
-        if (s.chave === "inicio")
-          section.style.backgroundImage = `url("${s.imagem_url.replace(/["\\\n\r]/g, "")}")`;
+        if (s.chave === "inicio") {
+          // This release uses the approved local hero rather than the older database image.
+          section.style.backgroundImage = 'url("/images/heronova2.jpg")';
+        }
         else {
           const img = section.querySelector(".about-img img,.events-img img");
           if (img) {
@@ -191,15 +193,22 @@
       const details = document.querySelectorAll(".loc-detail");
       const values = [
         `${info.endereco}, ${info.numero}${info.complemento ? " · " + info.complemento : ""} — ${info.bairro}, ${info.cidade} / ${info.estado} ${info.cep}`,
-        [info.telefone, info.whatsapp_secundario].filter(Boolean).join(" · "),
+        "Fale conosco pelo WhatsApp",
       ];
       details.forEach((el, i) => {
         const p = el.querySelector("p");
-        if (p && i < 2) p.textContent = values[i];
+        if (p && i === 0) p.textContent = values[i];
+        if (p && i === 1) {
+          const contact = document.createElement("a");
+          contact.textContent = "Fale conosco pelo WhatsApp";
+          const number = (info.whatsapp || info.whatsapp_secundario || "").replace(/\D/g, "");
+          if (number) { contact.href = "https://wa.me/" + number; contact.target = "_blank"; contact.rel = "noopener"; }
+          p.replaceChildren(contact);
+        }
       });
       document.querySelectorAll('a[href^="tel:"]').forEach((a) => {
         a.href = "tel:" + info.telefone;
-        a.textContent = info.telefone;
+        a.textContent = "Ligue para o Boteco";
       });
       document
         .querySelectorAll(".logo-text")
@@ -209,7 +218,7 @@
       if (address) address.textContent = info.endereco + ", " + info.numero;
       document
         .querySelectorAll('.footer-col a[href*="wa.me"]')
-        .forEach((el) => (el.textContent = el.hasAttribute("data-whatsapp-secondary") ? info.whatsapp_secundario || "" : info.telefone));
+        .forEach((el) => (el.textContent = "Fale conosco pelo WhatsApp"));
       document.querySelector(".footer-bottom p").textContent =
         "© " +
         new Date().getFullYear() +

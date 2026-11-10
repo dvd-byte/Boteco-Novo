@@ -343,6 +343,9 @@ app.use(
   "/uploads",
   express.static(uploadDir, { maxAge: "7d", dotfiles: "deny" }),
 );
+app.use("/admin", (req, res, next) => { res.set("X-Robots-Tag", "noindex, nofollow"); next(); });
+app.get("/index.html", (req, res) => res.redirect(301, "/"));
+app.get("/images/heronova2.jpg", (req, res) => res.sendFile(path.join(root, "imagens", "heronova2.jpg")));
 app.use("/admin", express.static(path.join(root, "admin")));
 app.use("/imagens", express.static(path.join(root, "imagens")));
 for (const file of [
